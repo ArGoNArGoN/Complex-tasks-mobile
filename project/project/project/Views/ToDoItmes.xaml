@@ -1,3 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="project.Views.TaskItmes"
+             xmlns:viewModels="clr-namespace:project.ViewModels"
+             xmlns:views="clr-namespace:project.Views"
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core">
+    
     <ContentView.Resources>
         <ResourceDictionary>
             <Style TargetType="Frame" x:Key="main-frame-style">
@@ -27,3 +35,4 @@
             </Size>
         </android:ImageButton.ShadowOffset>
     </Frame>
+</ContentView>
