@@ -6,6 +6,10 @@
              xmlns:views="clr-namespace:project.Views"
              xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core">
     
+    <ContentView.BindingContext>
+        <views:ListToDoView></views:ListToDoView>
+    </ContentView.BindingContext>
+    
     <ContentView.Resources>
         <ResourceDictionary>
             <Style TargetType="Frame" x:Key="main-frame-style">
