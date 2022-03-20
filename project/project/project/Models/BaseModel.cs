@@ -5,7 +5,7 @@ using System.Text;
 namespace project.Models
 {
     /// <summary>
-    /// Базовая сужность
+    /// Базовая сущность
     /// </summary>
     public abstract class BaseModel
     {
