@@ -16,7 +16,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Views\ListEventsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\ListToDoView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Services\" />
-    <Folder Include="Views\" />
   </ItemGroup>
 </Project>
