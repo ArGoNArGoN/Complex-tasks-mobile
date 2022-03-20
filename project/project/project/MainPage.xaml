@@ -1,6 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Shell xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="project.MainPage">
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       x:Class="project.MainPage"
+       xmlns:views="clr-namespace:project.Views">
+    <TabBar>
+        <Tab Title="События">
+            <ShellContent ContentTemplate="{DataTemplate views:ListEventsView}"></ShellContent>
+        </Tab>
 
+        <Tab Title="Задачи">
+            <ShellContent ContentTemplate="{DataTemplate views:ListToDoView}"></ShellContent>
+        </Tab>
+    </TabBar>
 </Shell>

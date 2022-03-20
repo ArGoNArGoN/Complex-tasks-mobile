@@ -1,0 +1,29 @@
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Frame" x:Key="main-frame-style">
+                <Setter Property="CornerRadius" Value="0"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <Frame Style="{StaticResource main-frame-style}">
+        <StackLayout>
+            <Label Text="{Binding ListName}"></Label>
+            <CollectionView ItemsSource="{Binding Items}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <ContentView BindingContext="{Binding .}"></ContentView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+        
+        <android:ImageButton.ShadowOffset>
+            <Size>
+                <x:Arguments>
+                    <x:Double>10</x:Double>
+                    <x:Double>10</x:Double>
+                </x:Arguments>
+            </Size>
+        </android:ImageButton.ShadowOffset>
+    </Frame>
