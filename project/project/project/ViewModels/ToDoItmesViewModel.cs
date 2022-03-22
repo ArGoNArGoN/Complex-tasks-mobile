@@ -1,15 +1,22 @@
-﻿using project.Models;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-
-namespace project.ViewModels
+﻿namespace project.ViewModels
 {
-	/// <summary>
-	/// Связывает коллекцию задач с View
-	/// </summary>
-	public class ToDoItmesViewModel<T, V>
+    /// <summary>
+    /// Отвечает за отображение Активных и Ожиающих задач
+    /// </summary>
+    public class ToDoItmesViewModel
 		: BaseViewModel
 	{
+		/// <summary>
+		/// VM активных задач.
+		/// Чтобы задать новый, продублируй и прокинь на View в BindingContext 
+		/// </summary>
+		public ActiveToDoListViewModel ActiveToDoListViewModel { get; }
+		/// <summary>
+		/// Инициализирует VM для работы с задачами
+		/// </summary>
+		public ToDoItmesViewModel()
+		{
+			ActiveToDoListViewModel = new ActiveToDoListViewModel();
+		}
 	}
 }

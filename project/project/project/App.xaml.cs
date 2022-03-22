@@ -1,4 +1,5 @@
-﻿using System;
+﻿using project.Services;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -9,6 +10,8 @@ namespace project
         public App()
         {
             InitializeComponent();
+
+            DependencyService.Register<ToDoDataStore>();
 
             MainPage = new MainPage();
         }

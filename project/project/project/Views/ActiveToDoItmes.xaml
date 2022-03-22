@@ -1,42 +1,31 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="project.Views.TaskItmes"
+             x:Class="project.Views.ActiveToDoItems"
              xmlns:viewModels="clr-namespace:project.ViewModels"
              xmlns:views="clr-namespace:project.Views"
-             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core">
-    
-    <ContentView.BindingContext>
-        <views:ListToDoView></views:ListToDoView>
-    </ContentView.BindingContext>
-    
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+             x:DataType="viewModels:ActiveToDoListViewModel">
+
     <ContentView.Resources>
         <ResourceDictionary>
             <Style TargetType="Frame" x:Key="main-frame-style">
-                <Setter Property="CornerRadius" Value="0"></Setter>
+                <Setter Property="CornerRadius" Value="16"></Setter>
+                <Setter Property="BorderColor" Value="WhiteSmoke"></Setter>
             </Style>
         </ResourceDictionary>
     </ContentView.Resources>
 
     <Frame Style="{StaticResource main-frame-style}">
         <StackLayout>
-            <Label Text="{Binding ListName}"></Label>
+            <Label Text="{Binding ListName}" BackgroundColor="White"></Label>
             <CollectionView ItemsSource="{Binding Items}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <ContentView BindingContext="{Binding .}"></ContentView>
+                        <views:ActiveToDoItem BindingContext="{Binding .}"></views:ActiveToDoItem>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </StackLayout>
-        
-        <android:ImageButton.ShadowOffset>
-            <Size>
-                <x:Arguments>
-                    <x:Double>10</x:Double>
-                    <x:Double>10</x:Double>
-                </x:Arguments>
-            </Size>
-        </android:ImageButton.ShadowOffset>
     </Frame>
 </ContentView>

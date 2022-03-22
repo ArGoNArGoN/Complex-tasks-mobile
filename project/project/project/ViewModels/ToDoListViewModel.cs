@@ -5,12 +5,16 @@ using System.Collections.ObjectModel;
 
 namespace project.ViewModels
 {
+	/// <summary>
+	/// Описывает коллекцию задач, связанную по критерию
+	/// </summary>
+	/// <typeparam name="T">Тип ViewModel</typeparam>
+	/// <typeparam name="V">Тип Model</typeparam>
     public class ToDoListViewModel<T, V>
         : BaseViewModel
         where T : ToDoViewModel<V>
         where V : BaseToDoModel, new()
     {
-
 		private String listName = "";
 
 		public ToDoListViewModel()

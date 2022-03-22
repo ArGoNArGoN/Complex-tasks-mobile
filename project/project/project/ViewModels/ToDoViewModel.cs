@@ -55,6 +55,15 @@ namespace project.ViewModels
 		}
 
 		/// <summary>
+		/// Создает пустой объект
+		/// </summary>
+		public ToDoViewModel(T toDo)
+			: this()
+		{
+			ToDo = toDo ?? new T();
+		}
+
+		/// <summary>
 		/// Ищет задачу по id и присваивает поля
 		/// </summary>
 		/// <param name="id">Идентификатор задачи</param>

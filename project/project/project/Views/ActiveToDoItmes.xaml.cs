@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace project.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class TaskItmes : ContentView
+    public partial class ActiveToDoItems : ContentView
     {
-        public TaskItmes()
+        public ActiveToDoItems()
         {
             InitializeComponent();
         }

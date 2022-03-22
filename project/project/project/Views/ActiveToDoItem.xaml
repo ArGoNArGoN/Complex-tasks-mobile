@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:viewModels="clr-namespace:project.ViewModels"
+             x:Class="project.Views.ActiveToDoItem">
+
+    <ContentView.BindingContext>
+        <viewModels:ActiveToDoViewModel/>
+    </ContentView.BindingContext>
+
+    <Frame>
+        <Label Text="{Binding Title}"></Label>
+    </Frame>
+</ContentView>
