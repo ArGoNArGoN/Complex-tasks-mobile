@@ -27,14 +27,9 @@ namespace project.ViewModels
 		/// <summary>
 		/// Срок, до которого нужно выполнить данную задачу
 		/// </summary>
-		public virtual DateTime EndDate
+		public virtual TimeSpan EndDate
 		{
-			get { return ToDo.EndDate; }
-			protected set 
-			{
-				ToDo.EndDate = value;
-				OnPropertyChanged(nameof(value));
-			}
+			get { return ToDo.EndDate - DateTime.Now;  }
 		}
 		/// <summary>
 		/// Количество продукции
@@ -71,5 +66,12 @@ namespace project.ViewModels
         {
 			throw new NotImplementedException();
         }
+		public StatusToDo GetStatus
+		{
+			get => ToDo.EndDate > DateTime.Now ? StatusToDo.Overdue
+				: DateTime.Now - ToDo.EndDate < new TimeSpan(1, 0, 0, 0) ? StatusToDo.Urgently
+				: DateTime.Now - ToDo.EndDate < new TimeSpan(2, 0, 0, 0) ? StatusToDo.Priority
+				: StatusToDo.None;
+		}
 	}
 }
