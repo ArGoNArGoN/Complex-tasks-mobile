@@ -1,67 +1,141 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:project.Models"
              xmlns:viewModels="clr-namespace:project.ViewModels"
-             x:Class="project.Views.ActiveToDoItem"
-             HeightRequest="110">
+             x:Class="project.Views.ActiveToDoItem">
 
     <ContentView.BindingContext>
         <viewModels:ActiveToDoViewModel/>
     </ContentView.BindingContext>
-
+    
     <ContentView.Resources>
         <Style x:Key="frame-body-todo-style" TargetType="Frame">
-            <Setter Property="CornerRadius" Value="20"></Setter>
+            <Setter Property="CornerRadius" Value="24"></Setter>
             <Setter Property="BackgroundColor" Value="Transparent"></Setter>
-            <Setter Property="BorderColor" Value="Black"></Setter>
-            <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource color-list-totdos-box-view-light}, Dark={StaticResource color-list-totdos-box-view-dark}}"></Setter>
+            <Setter Property="Margin" Value="1"></Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding GetStatus}" Value="{Static local:StatusToDo.None}" TargetType="Frame">
+                    <Setter Property="BorderColor" Value="{AppThemeBinding Light={StaticResource color-totdo-box-border-light}, Dark={StaticResource color-totdo-box-border-dark}}"></Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding GetStatus}" Value="{Static local:StatusToDo.Priority}" TargetType="Frame">
+                    <Setter Property="BorderColor" Value="#55C32E"></Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding GetStatus}" Value="{Static local:StatusToDo.Urgently}" TargetType="Frame">
+                    <Setter Property="BorderColor" Value="Red"></Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding GetStatus}" Value="{Static local:StatusToDo.Overdue}" TargetType="Frame">
+                    <Setter Property="BorderColor" Value="Red"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
     </ContentView.Resources>
 
     <ContentView.Content>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="4"/>
-            </Grid.RowDefinitions>
+        <StackLayout Orientation="Vertical">
+            <Frame Style="{StaticResource frame-body-todo-style}">
+                <Frame Grid.Row="0" Style="{StaticResource frame-body-todo-style}" CornerRadius="23">
+                    <Grid>
+                        <Label VerticalTextAlignment="Start"
+                               HorizontalTextAlignment="Center"
+                               FontAttributes="Bold"
+                               TextColor="Red">
 
-            <Frame Margin="0" Grid.Row="0" Style="{StaticResource frame-body-todo-style}">
-                <Grid Padding="25, 15, 15, 15">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition Width="auto"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
+                            <Label.Triggers>
+                                <DataTrigger Binding="{Binding GetStatus}" Value="{Static local:StatusToDo.Overdue}" TargetType="Label">
+                                    <Setter Property="IsVisible" Value="True"></Setter>
+                                    <Setter Property="Text" Value="просрочено"></Setter>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding GetStatus}" Value="{Static local:StatusToDo.Urgently}" TargetType="Label">
+                                    <Setter Property="IsVisible" Value="True"></Setter>
+                                    <Setter Property="Text" Value="срочно"></Setter>
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+                        
+                        <Grid Padding="22, 14, 14, 14">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
 
-                    <StackLayout Grid.Column="0" Orientation="Horizontal" VerticalOptions="Center">
-                        <BoxView HeightRequest="50" WidthRequest="50" CornerRadius="5" VerticalOptions="Center" BackgroundColor="{AppThemeBinding Light=WhiteSmoke, Dark={StaticResource color-list-totdos-box-view-dark}}"></BoxView>
-                        <Label Margin="8, 0, 0, 0" VerticalOptions="Center" Text="{Binding Title}" Style="{StaticResource label-normal-text-style}"></Label>
-                        <Label VerticalOptions="Center" Text="{Binding Count}" Style="{StaticResource label-normal-text-style}"></Label>
-                        <Label VerticalOptions="Center" Text="шт." Style="{StaticResource label-normal-text-style}"></Label>
-                    </StackLayout>
+                            <StackLayout Grid.Column="0" Orientation="Horizontal" VerticalOptions="Center">
+                                <BoxView HeightRequest="50" WidthRequest="50" CornerRadius="5" VerticalOptions="Center" BackgroundColor="{AppThemeBinding Light=WhiteSmoke, Dark={StaticResource color-list-totdos-box-view-dark}}"></BoxView>
+                                <Label Margin="8, 0, 0, 0" VerticalOptions="Center" Text="{Binding Title}" Style="{StaticResource label-normal-text-style}"></Label>
+                                <Label VerticalOptions="Center" Text="{Binding Count}" Style="{StaticResource label-normal-text-style}"></Label>
+                                <Label VerticalOptions="Center" Text="шт." Style="{StaticResource label-normal-text-style}"></Label>
+                            </StackLayout>
 
-                    <Grid Grid.Column="1" Margin="0" Padding="0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="2"/>
-                            <RowDefinition Height="auto"/>
-                        </Grid.RowDefinitions>
+                            <Grid Grid.Column="1">
+                                <Grid.Style>
+                                    <Style TargetType="Grid">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsEmptySubToDos}" Value="true" TargetType="Grid">
+                                                <Setter Property="Opacity" Value="0"></Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Grid.Style>
 
-                        <Label Grid.Row="0" Text="{Binding EndDate, StringFormat=\{0:hh\} ч.}" FontSize="15"></Label>
-                        <BoxView Grid.Row="1" BackgroundColor="{AppThemeBinding Light=Black, Dark=WhiteSmoke}"></BoxView>
-                        <Label Grid.Row="2" Text="{Binding EndDate, StringFormat=\{0:hh\} h}" FontSize="15"></Label>
+                                <Grid.Resources>
+                                    <Style TargetType="Label" BasedOn="{StaticResource label-base-style}">
+                                        <Setter Property="FontSize" Value="18"></Setter>
+                                        <Setter Property="HorizontalTextAlignment" Value="Center"></Setter>
+                                    </Style>
+                                </Grid.Resources>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="2"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+
+                                <Label Grid.Row="0" Text="{Binding EndDate, StringFormat=\{0:hh\} ч.}"></Label>
+                                <BoxView Grid.Row="1" CornerRadius="3" HorizontalOptions="Center" WidthRequest="20"></BoxView>
+                                <StackLayout Grid.Row="2" Orientation="Horizontal" HorizontalOptions="Center">
+                                    <Label Text="{Binding GetCountCompletedSubToDos}"></Label>
+                                    <Label Text="из" Margin="-2, 0"></Label>
+                                    <Label Text="{Binding GetAllCountSubToDos}"></Label>
+                                </StackLayout>
+
+                            </Grid>
+
+                            <Label Grid.Column="1" 
+                               VerticalTextAlignment="Center" 
+                               HorizontalTextAlignment="Center"
+                               FontSize="23"
+                               Text="{Binding EndDate, StringFormat=\{0:hh\} ч.}"
+                               Opacity="0">
+
+                                <Label.Style>
+                                    <Style TargetType="Label">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsEmptySubToDos}" Value="true" TargetType="Label">
+                                                <Setter Property="Opacity" Value="1"></Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Label.Style>
+                            </Label>
+                        </Grid>
                     </Grid>
-                </Grid>
+                </Frame>
             </Frame>
 
-            <Grid Grid.Row="1" HeightRequest="1">
+            <Grid HeightRequest="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.3*"/>
+                    <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="0.3*"/>
+                    <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
 
-                <BoxView Grid.Column="1" BackgroundColor="{AppThemeBinding Light=Black, Dark=WhiteSmoke}" HeightRequest="1"></BoxView>
+                <BoxView Grid.Column="1" HeightRequest="1.5" CornerRadius="2"></BoxView>
             </Grid>
-        </Grid>
+        </StackLayout>
     </ContentView.Content>
 </ContentView>

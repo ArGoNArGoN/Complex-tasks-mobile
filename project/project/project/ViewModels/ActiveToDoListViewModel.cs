@@ -9,7 +9,7 @@ namespace project.ViewModels
     /// Отображение активных задач
     /// </summary>
     public class ActiveToDoListViewModel
-        : ToDoListViewModel<ToDoViewModel<ActiveToDoModel>, ActiveToDoModel>
+        : ToDoListViewModel<ActiveToDoViewModel, ActiveToDoModel>
     {
         /// <summary>
         /// Заменить на интерфейс
@@ -27,7 +27,7 @@ namespace project.ViewModels
             var items = allItems.OfType<ActiveToDoModel>();
 
             ListName = "Активные";
-            SetItmes(items.Select(x => new ToDoViewModel<ActiveToDoModel>(x)));
+            SetItmes(items.Select(x => new ActiveToDoViewModel(x)));
         }
     }
 }

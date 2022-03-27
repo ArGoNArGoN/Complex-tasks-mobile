@@ -50,5 +50,7 @@ namespace project.ViewModels
 			foreach (var item in enumerable)
 				Items.Add(item);
 		}
+
+		public Int32 GetCount { get => Items.Count; }
 	}
 }

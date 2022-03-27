@@ -7,8 +7,14 @@
 	
 	<Application.Resources>
         <ResourceDictionary>
+            <Color x:Key="color-totdo-box-border-light">Black</Color>
+            <Color x:Key="color-totdo-box-border-dark">Gray</Color>
+            
             <Color x:Key="color-list-totdos-box-view-light">White</Color>
             <Color x:Key="color-list-totdos-box-view-dark">#3E2C41</Color>
+
+            <Color x:Key="color-line-light">Black</Color>
+            <Color x:Key="color-line-dark">Gray</Color>
 
             <Style x:Key="content-page-base-style" TargetType="ContentPage">
 				<Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#F5F3F3, Dark=#261C2C}"></Setter>
@@ -22,11 +28,18 @@
 				<Setter Property="Padding" Value="0"></Setter>
 				<Setter Property="CornerRadius" Value="0"></Setter>
 				<Setter Property="BackgroundColor" Value="Transparent"></Setter>
+                <Setter Property="BackgroundColor" Value="DimGray"></Setter>
 			</Style>
 
             <Style x:Key="label-normal-text-style" TargetType="Label">
                 <Setter Property="FontSize" Value="26"></Setter>
             </Style>
+
+            <Style x:Key="box-view-base-style" TargetType="BoxView">
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource color-line-light}, Dark={StaticResource color-line-dark}}"></Setter>
+            </Style>
+
+            <Style TargetType="BoxView" BasedOn="{StaticResource box-view-base-style}"></Style>
             
             <Style TargetType="Label" BasedOn="{StaticResource label-base-style}"></Style>
             <Style TargetType="Frame" BasedOn="{StaticResource frame-base-style}"></Style>
