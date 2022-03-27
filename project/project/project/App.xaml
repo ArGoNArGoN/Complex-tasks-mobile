@@ -1,12 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="project.App"
-             xmlns:views="clr-namespace:project.Views"
-             xmlns:viewsModels="clr-namespace:project.ViewModels">
-    
-    <Application.Resources>
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 x:Class="project.App"
+			 xmlns:views="clr-namespace:project.Views"
+			 xmlns:viewsModels="clr-namespace:project.ViewModels">
+	
+	<Application.Resources>
         <ResourceDictionary>
+            <Color x:Key="color-list-totdos-box-view-light">White</Color>
+            <Color x:Key="color-list-totdos-box-view-dark">#3E2C41</Color>
+
+            <Style x:Key="content-page-base-style" TargetType="ContentPage">
+				<Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#F5F3F3, Dark=#261C2C}"></Setter>
+			</Style>
+			<Style x:Key="label-base-style" TargetType="Label">
+				<Setter Property="TextColor" Value="{AppThemeBinding Light=Black, Dark=WhiteSmoke}"></Setter>
+				<Setter Property="BackgroundColor" Value="Transparent"></Setter>
+				<Setter Property="FontSize" Value="Large"></Setter>
+			</Style>
+			<Style x:Key="frame-base-style" TargetType="Frame">
+				<Setter Property="Padding" Value="0"></Setter>
+				<Setter Property="CornerRadius" Value="0"></Setter>
+				<Setter Property="BackgroundColor" Value="Transparent"></Setter>
+			</Style>
+
+            <Style x:Key="label-normal-text-style" TargetType="Label">
+                <Setter Property="FontSize" Value="26"></Setter>
+            </Style>
+            
+            <Style TargetType="Label" BasedOn="{StaticResource label-base-style}"></Style>
+            <Style TargetType="Frame" BasedOn="{StaticResource frame-base-style}"></Style>
         </ResourceDictionary>
-    </Application.Resources>
+	</Application.Resources>
 </Application>

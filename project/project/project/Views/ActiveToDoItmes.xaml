@@ -8,21 +8,29 @@
              x:DataType="viewModels:ActiveToDoListViewModel">
 
     <ContentView.Resources>
-        <ResourceDictionary>
-            <Style TargetType="Frame" x:Key="main-frame-style">
-                <Setter Property="CornerRadius" Value="16"></Setter>
-                <Setter Property="BorderColor" Value="WhiteSmoke"></Setter>
-            </Style>
-        </ResourceDictionary>
+        <Style x:Key="label-list-todos-title" TargetType="Label" BasedOn="{StaticResource label-base-style}">
+            <Setter Property="FontSize" Value="33"></Setter>
+            <Setter Property="Margin" Value="20,0,0,0"></Setter>
+        </Style>
+        <Style x:Key="frame-border-items-style" TargetType="Frame" BasedOn="{StaticResource frame-base-style}">
+            <Setter Property="BackgroundColor" Value="Transparent"></Setter>
+            <Setter Property="Margin" Value="0, 10"></Setter>
+            <Setter Property="HasShadow" Value="True"></Setter>
+        </Style>
+        <Style x:Key="collection-view-todos-style" TargetType="CollectionView">
+            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource color-list-totdos-box-view-light}, Dark={StaticResource color-list-totdos-box-view-dark}}"></Setter>
+
+        </Style>
     </ContentView.Resources>
 
-    <Frame Style="{StaticResource main-frame-style}">
+    <Frame Style="{StaticResource frame-border-items-style}">
         <StackLayout>
-            <Label Text="{Binding ListName}" BackgroundColor="White"></Label>
-            <CollectionView ItemsSource="{Binding Items}">
+            <Label Text="{Binding ListName}" Style="{StaticResource label-list-todos-title}"></Label>
+            <CollectionView ItemsSource="{Binding Items}" 
+                            Style="{StaticResource collection-view-todos-style}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <views:ActiveToDoItem BindingContext="{Binding .}"></views:ActiveToDoItem>
+                        <views:ActiveToDoItem Padding="10" BindingContext="{Binding .}"></views:ActiveToDoItem>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

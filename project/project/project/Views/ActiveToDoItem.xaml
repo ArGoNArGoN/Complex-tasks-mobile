@@ -2,13 +2,66 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:viewModels="clr-namespace:project.ViewModels"
-             x:Class="project.Views.ActiveToDoItem">
+             x:Class="project.Views.ActiveToDoItem"
+             HeightRequest="20">
 
     <ContentView.BindingContext>
         <viewModels:ActiveToDoViewModel/>
     </ContentView.BindingContext>
 
-    <Frame>
-        <Label Text="{Binding Title}"></Label>
-    </Frame>
+    <ContentView.Resources>
+        <Style x:Key="frame-body-todo-style" TargetType="Frame">
+            <Setter Property="CornerRadius" Value="20"></Setter>
+            <Setter Property="BackgroundColor" Value="Transparent"></Setter>
+            <Setter Property="BorderColor" Value="Black"></Setter>
+            <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource color-list-totdos-box-view-light}, Dark={StaticResource color-list-totdos-box-view-dark}}"></Setter>
+        </Style>
+    </ContentView.Resources>
+
+    <ContentView.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="4"/>
+            </Grid.RowDefinitions>
+
+            <Frame Margin="0" Grid.Row="0" Style="{StaticResource frame-body-todo-style}">
+                <Grid Padding="25, 15, 15, 15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <StackLayout Grid.Column="0" Orientation="Horizontal" VerticalOptions="Center">
+                        <BoxView HeightRequest="50" WidthRequest="50" CornerRadius="5" VerticalOptions="Center" BackgroundColor="{AppThemeBinding Light=WhiteSmoke, Dark={StaticResource color-list-totdos-box-view-dark}}"></BoxView>
+                        <Label Margin="8, 0, 0, 0" VerticalOptions="Center" Text="{Binding Title}" Style="{StaticResource label-normal-text-style}"></Label>
+                        <Label VerticalOptions="Center" Text="{Binding Count}" Style="{StaticResource label-normal-text-style}"></Label>
+                        <Label VerticalOptions="Center" Text="шт." Style="{StaticResource label-normal-text-style}"></Label>
+                    </StackLayout>
+
+                    <Grid Grid.Column="1" Margin="0" Padding="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="2"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" Text="{Binding EndDate, StringFormat=\{0:hh\} ч.}" FontSize="15"></Label>
+                        <BoxView Grid.Row="1" BackgroundColor="{AppThemeBinding Light=Black, Dark=WhiteSmoke}"></BoxView>
+                        <Label Grid.Row="2" Text="{Binding EndDate, StringFormat=\{0:hh\} h}" FontSize="15"></Label>
+                    </Grid>
+                </Grid>
+            </Frame>
+
+            <Grid Grid.Row="1" HeightRequest="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.3*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.3*"/>
+                </Grid.ColumnDefinitions>
+
+                <BoxView Grid.Column="1" BackgroundColor="{AppThemeBinding Light=Black, Dark=WhiteSmoke}" HeightRequest="1"></BoxView>
+            </Grid>
+        </Grid>
+    </ContentView.Content>
 </ContentView>

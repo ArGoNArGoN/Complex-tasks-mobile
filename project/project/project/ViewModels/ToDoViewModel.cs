@@ -27,14 +27,9 @@ namespace project.ViewModels
 		/// <summary>
 		/// Срок, до которого нужно выполнить данную задачу
 		/// </summary>
-		public virtual DateTime EndDate
+		public virtual TimeSpan EndDate
 		{
-			get { return ToDo.EndDate; }
-			protected set 
-			{
-				ToDo.EndDate = value;
-				OnPropertyChanged(nameof(value));
-			}
+			get { return ToDo.EndDate - DateTime.Now;  }
 		}
 		/// <summary>
 		/// Количество продукции

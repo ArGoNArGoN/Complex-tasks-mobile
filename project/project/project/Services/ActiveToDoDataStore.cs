@@ -26,6 +26,12 @@ namespace project.Services
 					Count = 120,
 					EndDate = DateTime.Now + new TimeSpan(1, 5, 0, 0)
 				},
+				new ActiveToDoModel()
+				{
+					Title = "Брошюры",
+					Count = 120,
+					EndDate = DateTime.Now + new TimeSpan(1, 5, 0, 0)
+				},
 			};
         }
 	}

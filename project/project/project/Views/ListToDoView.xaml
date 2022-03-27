@@ -5,6 +5,7 @@
              xmlns:viewModels="clr-namespace:project.ViewModels"
              xmlns:views="clr-namespace:project.Views"
              x:DataType="viewModels:ToDoItmesViewModel"
+             Style="{DynamicResource content-page-base-style}"
              Title="Задачи:">
 
     <ContentPage.BindingContext>
