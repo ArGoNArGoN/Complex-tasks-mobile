@@ -39,6 +39,24 @@
                 <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource color-line-light}, Dark={StaticResource color-line-dark}}"></Setter>
             </Style>
 
+            <Style x:Key="label-list-todos-title" TargetType="Label" BasedOn="{StaticResource label-base-style}">
+                <Setter Property="FontSize" Value="33"></Setter>
+                <Setter Property="Margin" Value="20,0,0,0"></Setter>
+            </Style>
+            <Style x:Key="frame-border-items-style" TargetType="Frame" BasedOn="{StaticResource frame-base-style}">
+                <Setter Property="BackgroundColor" Value="Transparent"></Setter>
+                <Setter Property="Margin" Value="0, 10"></Setter>
+            </Style>
+            <Style x:Key="collection-view-todos-style" TargetType="CollectionView">
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource color-list-totdos-box-view-light}, Dark={StaticResource color-list-totdos-box-view-dark}}"></Setter>
+            </Style>
+
+            <Style x:Key="frame-body-todo-style" TargetType="Frame">
+                <Setter Property="CornerRadius" Value="24"></Setter>
+                <Setter Property="BackgroundColor" Value="Transparent"></Setter>
+                <Setter Property="Margin" Value="1"></Setter>
+            </Style>
+
             <Style TargetType="BoxView" BasedOn="{StaticResource box-view-base-style}"></Style>
             
             <Style TargetType="Label" BasedOn="{StaticResource label-base-style}"></Style>

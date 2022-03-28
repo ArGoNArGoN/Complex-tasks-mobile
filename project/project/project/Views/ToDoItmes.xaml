@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="project.Views.ToDoItems"
+             xmlns:viewModels="clr-namespace:project.ViewModels"
+             xmlns:views="clr-namespace:project.Views"
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core">
+
+    <Frame Style="{StaticResource frame-border-items-style}">
+        <StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="{Binding ListName}" Style="{StaticResource label-list-todos-title}"></Label>
+                <Label Text="{Binding GetCount}" Style="{StaticResource label-list-todos-title}" Margin="0"></Label>
+            </StackLayout>
+            <Frame>
+                <StackLayout BindableLayout.ItemsSource="{Binding Items}" 
+                             Style="{StaticResource collection-view-todos-style}"
+                             Spacing="0"
+                             Padding="10,16,10,4">
+
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <views:ToDoItem Padding="0,0,0,6" BindingContext="{Binding .}"></views:ToDoItem>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </Frame>
+</ContentView>

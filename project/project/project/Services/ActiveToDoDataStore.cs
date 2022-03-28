@@ -24,19 +24,26 @@ namespace project.Services
 				{
 					Title = "Брошюры",
 					Count = 120,
-					EndDate = DateTime.Now - new TimeSpan(1, 5, 0, 0)
-				},
-				new ActiveToDoModel()
-				{
-					Title = "Брошюры",
-					Count = 20,
-					EndDate = DateTime.Now - new TimeSpan(2, 3, 13, 0)
-				},
-				new ActiveToDoModel()
-				{
-					Title = "Брошюры",
-					Count = 120,
 					EndDate = DateTime.Now + new TimeSpan(0, 3, 0, 0)
+				},
+
+				new PendingToDoModel(new List<SubToDo>() { new ActiveSubToDo() { Title="Написать что-то!" }, new ActiveSubToDo() { Title="Написать что-то!" }, new ActiveSubToDo() { Title="Написать что-то!" }, new CompletedSubToDo() { Title="Написать что-то!" }, new CompletedSubToDo() { Title="Написать что-то!" }, new CompletedSubToDo() { Title="Написать что-то!" } })
+                {
+					Title = "Стенды",
+					Count = 3,
+					EndDate = DateTime.Now + new TimeSpan(0, 3, 0, 0)
+				},
+				new PendingToDoModel(new List<SubToDo>() { new ActiveSubToDo() { Title="Написать что-то!" }, new CompletedSubToDo() { Title="Написать что-то!" } })
+				{
+					Title = "Крепежи",
+					Count = 132,
+					EndDate = DateTime.Now + new TimeSpan(3, 10, 0, 0)
+				},
+				new PendingToDoModel()
+				{
+					Title = "Рамки",
+					Count = 100,
+					EndDate = DateTime.Now + new TimeSpan(1, 3, 0, 0)
 				},
 			};
         }

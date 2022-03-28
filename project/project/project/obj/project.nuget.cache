@@ -1,14 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "LQa2QaJdL9OdmaNWnz4M4SQ9fSDywWDlPshh0sLTLpEKZGT++vM6oKnua2Iz/B59nqeMUh18RG+BlGp1e4hazg==",
+  "dgSpecHash": "4iwcbbOx2vBIgasPjAKjAZxEJdmq65y6cwlrTqVlNB27mC91Vxr4tpOOvBGsEF1G9MClKC7IC7Kp2+70jIV/pg==",
   "success": true,
   "projectFilePath": "C:\\repos\\Complex-tasks-mobile\\project\\project\\project\\project.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Qwerty\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\Qwerty\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
     "C:\\Users\\Qwerty\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
-    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\xamarin.essentials\\1.6.1\\xamarin.essentials.1.6.1.nupkg.sha512",
-    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\xamarin.forms\\5.0.0.2012\\xamarin.forms.5.0.0.2012.nupkg.sha512"
+    "C:\\Users\\Qwerty\\.nuget\\packages\\xamarin.essentials\\1.7.1\\xamarin.essentials.1.7.1.nupkg.sha512",
+    "C:\\Users\\Qwerty\\.nuget\\packages\\xamarin.forms\\5.0.0.2337\\xamarin.forms.5.0.0.2337.nupkg.sha512"
   ],
   "logs": []
 }

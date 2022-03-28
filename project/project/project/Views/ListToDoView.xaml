@@ -17,7 +17,12 @@
         <ToolbarItem Text="Обновить"></ToolbarItem>
     </ContentPage.ToolbarItems>
 
-    <StackLayout>
-        <views:ActiveToDoItems Margin="0" BindingContext="{Binding ActiveToDoListViewModel}"/>
-    </StackLayout>
+    <RefreshView>
+        <ScrollView>
+            <StackLayout Spacing="0">
+                <views:ToDoItems BindingContext="{Binding ActiveToDoListViewModel}"></views:ToDoItems>
+                <views:ToDoItems BindingContext="{Binding PendingToDoListViewModel}"></views:ToDoItems>
+            </StackLayout>
+        </ScrollView>
+    </RefreshView>
 </ContentPage>
