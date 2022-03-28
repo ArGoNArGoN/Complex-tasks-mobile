@@ -13,7 +13,7 @@ namespace project.ViewModels
     public class ToDoListViewModel<T, V>
         : BaseViewModel
         where T : ToDoViewModel<V>
-        where V : BaseToDoModel, new()
+        where V : ToDoModel, new()
     {
 		private String listName = "";
 

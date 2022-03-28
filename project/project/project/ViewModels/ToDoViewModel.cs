@@ -1,6 +1,6 @@
 ﻿using project.Models;
 using System;
-
+using System.Linq;
 
 namespace project.ViewModels
 {
@@ -9,7 +9,7 @@ namespace project.ViewModels
     /// </summary>
     public class ToDoViewModel<T>
 		: BaseViewModel
-		where T : BaseToDoModel, new()
+		where T : ToDoModel, new()
 	{
 		/// <summary>
 		/// модель, которую необходимо отобразить
@@ -57,6 +57,12 @@ namespace project.ViewModels
 		{
 			ToDo = toDo ?? new T();
 		}
+
+		public Boolean IsEmptySubToDos { get => this.ToDo.SubToDosIsEmpty; }
+
+		public virtual Int32 GetCountCompletedSubToDos { get => this.ToDo.SubToDos.OfType<CompletedSubToDo>().Count(); }
+		public virtual Int32 GetCountActiveSubToDos { get => this.ToDo.SubToDos.OfType<ActiveSubToDo>().Count(); }
+		public virtual Int32 GetAllCountSubToDos { get => this.ToDo.SubToDos.Count(); }
 
 		/// <summary>
 		/// Ищет задачу по id и присваивает поля

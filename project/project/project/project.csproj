@@ -29,11 +29,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Update="Views\ActiveToDoItem.xaml.cs">
-      <DependentUpon>ActiveToDoItem.xaml</DependentUpon>
+    <Compile Update="Views\ToDoItem.xaml.cs">
+      <DependentUpon>ToDoItem.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\ActiveToDoItmes.xaml.cs">
-      <DependentUpon>ActiveToDoItmes.xaml</DependentUpon>
+    <Compile Update="Views\ToDoItmes.xaml.cs">
+      <DependentUpon>ToDoItmes.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -48,13 +48,7 @@
     <EmbeddedResource Update="Views\ListToDoView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\ActiveToDoItem.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\PendingToDoItem.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\PendingToDoItems.xaml">
+    <EmbeddedResource Update="Views\ToDoItem.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

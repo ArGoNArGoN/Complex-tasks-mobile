@@ -20,8 +20,8 @@
     <RefreshView>
         <ScrollView>
             <StackLayout Spacing="0">
-                <views:ActiveToDoItems BindingContext="{Binding ActiveToDoListViewModel}"></views:ActiveToDoItems>
-                <views:PendingToDoItems BindingContext="{Binding PendingToDoListViewModel}"></views:PendingToDoItems>
+                <views:ToDoItems BindingContext="{Binding ActiveToDoListViewModel}"></views:ToDoItems>
+                <views:ToDoItems BindingContext="{Binding PendingToDoListViewModel}"></views:ToDoItems>
             </StackLayout>
         </ScrollView>
     </RefreshView>
