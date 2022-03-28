@@ -68,9 +68,9 @@ namespace project.ViewModels
         }
 		public StatusToDo GetStatus
 		{
-			get => ToDo.EndDate > DateTime.Now ? StatusToDo.Overdue
-				: DateTime.Now - ToDo.EndDate < new TimeSpan(1, 0, 0, 0) ? StatusToDo.Urgently
-				: DateTime.Now - ToDo.EndDate < new TimeSpan(2, 0, 0, 0) ? StatusToDo.Priority
+			get => ToDo.EndDate < DateTime.Now ? StatusToDo.Overdue
+				: ToDo.EndDate - DateTime.Now < new TimeSpan(1, 0, 0, 0) ? StatusToDo.Urgently
+				: ToDo.EndDate - DateTime.Now < new TimeSpan(2, 0, 0, 0) ? StatusToDo.Priority
 				: StatusToDo.None;
 		}
 	}

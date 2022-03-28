@@ -2,7 +2,29 @@
 <Shell xmlns="http://xamarin.com/schemas/2014/forms"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        x:Class="project.MainPage"
+       BackgroundColor="{AppThemeBinding Light=#F5F3F3, Dark=#261C2C}"
        xmlns:views="clr-namespace:project.Views">
+
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Color x:Key="color-list-totdos-box-view-light">White</Color>
+            <Color x:Key="color-list-totdos-box-view-dark">#3E2C41</Color>
+
+            <Style x:Key="MyBaseStyle" TargetType="Element">
+
+                <Setter Property="Shell.ForegroundColor" Value="{AppThemeBinding Light=Black, Dark=White}"/>
+                <Setter Property="Shell.TitleColor" Value="{AppThemeBinding Light=Black, Dark=White}"/>
+                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+                <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{AppThemeBinding Light=WhiteSmoke, Dark={StaticResource color-list-totdos-box-view-dark}}"/>
+                <Setter Property="Shell.TabBarForegroundColor" Value="White"/>
+                <Setter Property="Shell.TabBarUnselectedColor" Value="{AppThemeBinding Light=Gray, Dark=WhiteSmoke}"/>
+                <Setter Property="Shell.TabBarTitleColor" Value="{AppThemeBinding Light=Black, Dark=White}"/>
+            </Style>
+
+            <Style TargetType="TabBar" BasedOn="{StaticResource MyBaseStyle}"></Style>
+        </ResourceDictionary>
+    </Shell.Resources>
     
     <TabBar>
         <Tab Title="События">

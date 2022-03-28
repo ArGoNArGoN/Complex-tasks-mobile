@@ -1,20 +1,19 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:project.Models"
-             xmlns:viewModels="clr-namespace:project.ViewModels"
-             xmlns:converts="clr-namespace:project.Views.Converts"
-             x:Class="project.Views.ActiveToDoItem">
+             xmlns:local="clr-namespace:project.Models" 
+             xmlns:viewModels="clr-namespace:project.ViewModels" xmlns:converts="clr-namespace:project.Views.Converts"
+             x:Class="project.Views.PendingToDoItem">
 
     <ContentView.BindingContext>
-        <viewModels:ActiveToDoViewModel/>
+        <viewModels:PendingToDoViewModel></viewModels:PendingToDoViewModel>
     </ContentView.BindingContext>
 
     <ContentView.Resources>
         <ResourceDictionary>
             <converts:TimeSpanToLocalDateConverter x:Key="convert"></converts:TimeSpanToLocalDateConverter>
         </ResourceDictionary>
-
+        
         <Style x:Key="frame-body-todo-style" TargetType="Frame" BasedOn="{StaticResource frame-body-todo-style}">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding GetStatus}" Value="{Static local:StatusToDo.None}" TargetType="Frame">
@@ -41,7 +40,6 @@
                         <Grid.Resources>
                             <Style x:Key="label-date-style" TargetType="Label" BasedOn="{StaticResource label-base-style}">
                                 <Setter Property="Text" Value="{Binding EndDate, Converter={StaticResource convert}}"></Setter>
-                                <Setter Property="HorizontalTextAlignment" Value="Center"></Setter>
                             </Style>
                         </Grid.Resources>
                         
@@ -61,10 +59,10 @@
                                 </DataTrigger>
                             </Label.Triggers>
                         </Label>
-                        
+
                         <Grid Padding="22, 14, 14, 14">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="5*"></ColumnDefinition>
+                                <ColumnDefinition Width="3*"></ColumnDefinition>
                                 <ColumnDefinition Width="*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
 
@@ -86,34 +84,28 @@
                                     </Style>
                                 </Grid.Style>
 
-                                <Grid.Resources>
-                                    <Style TargetType="Label" BasedOn="{StaticResource label-base-style}">
-                                        <Setter Property="FontSize" Value="18"></Setter>
-                                        <Setter Property="HorizontalTextAlignment" Value="Center"></Setter>
-                                    </Style>
-                                </Grid.Resources>
-
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="auto"/>
                                     <RowDefinition Height="2"/>
                                     <RowDefinition Height="auto"/>
                                 </Grid.RowDefinitions>
 
-                                <Label Grid.Row="0" Style="{StaticResource label-date-style}"></Label>
+                                <Label Grid.Row="0" HorizontalTextAlignment="Center" Style="{StaticResource label-date-style}"></Label>
                                 <BoxView Grid.Row="1" CornerRadius="3" HorizontalOptions="Center" WidthRequest="20"></BoxView>
+
                                 <StackLayout Grid.Row="2" Orientation="Horizontal" HorizontalOptions="Center">
                                     <Label Text="{Binding GetCountCompletedSubToDos}"></Label>
                                     <Label Text="из" Margin="-2, 0"></Label>
                                     <Label Text="{Binding GetAllCountSubToDos}"></Label>
                                 </StackLayout>
-
                             </Grid>
 
                             <Label Grid.Column="1" 
                                    VerticalTextAlignment="Center" 
+                                   HorizontalTextAlignment="Center"
                                    FontSize="23"
                                    Opacity="0">
-
+                                
                                 <Label.Style>
                                     <Style TargetType="Label" BasedOn="{StaticResource label-date-style}">
                                         <Style.Triggers>
@@ -134,7 +126,7 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                
+
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="*"/>

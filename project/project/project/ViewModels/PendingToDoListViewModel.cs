@@ -1,16 +1,16 @@
 ﻿using project.Models;
 using project.Services;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Xamarin.Forms;
 
 namespace project.ViewModels
 {
-    /// <summary>
-    /// Отображение активных задач
-    /// </summary>
-    public class ActiveToDoListViewModel
-        : ToDoListViewModel<ActiveToDoViewModel, ActiveToDoModel>
-    {
+	public class PendingToDoListViewModel
+        : ToDoListViewModel<PendingToDoViewModel, PendingToDoModel>
+	{
         /// <summary>
         /// Заменить на интерфейс
         /// </summary>
@@ -19,11 +19,11 @@ namespace project.ViewModels
         /// <summary>
         /// Загружает данные
         /// </summary>
-        public ActiveToDoListViewModel()
+        public PendingToDoListViewModel()
             : base()
         {
-            ListName = "Активные";
-            SetItmes(service.Get().OfType<ActiveToDoModel>().Select(x => new ActiveToDoViewModel(x)));
+            ListName = "Ожидающие";
+            SetItmes(service.Get().OfType<PendingToDoModel>().Select(x => new PendingToDoViewModel(x)));
         }
     }
 }

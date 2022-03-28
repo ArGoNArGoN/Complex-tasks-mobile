@@ -3,5 +3,7 @@
   <PropertyGroup>
     <SelectedDevice>Xiaomi M2010J19SY</SelectedDevice>
     <ActiveDebugProfile>Xiaomi M2010J19SY</ActiveDebugProfile>
+    <AndroidDesignerPreferredTheme>MainTheme</AndroidDesignerPreferredTheme>
+    <AndroidDesignerPreferredDevice>Nexus 4</AndroidDesignerPreferredDevice>
   </PropertyGroup>
 </Project>

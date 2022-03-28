@@ -7,40 +7,25 @@
              xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
              x:DataType="viewModels:ActiveToDoListViewModel">
 
-    <ContentView.Resources>
-        <Style x:Key="label-list-todos-title" TargetType="Label" BasedOn="{StaticResource label-base-style}">
-            <Setter Property="FontSize" Value="33"></Setter>
-            <Setter Property="Margin" Value="20,0,0,0"></Setter>
-        </Style>
-        <Style x:Key="frame-border-items-style" TargetType="Frame" BasedOn="{StaticResource frame-base-style}">
-            <Setter Property="BackgroundColor" Value="Transparent"></Setter>
-            <Setter Property="Margin" Value="0, 10"></Setter>
-            <Setter Property="HasShadow" Value="True"></Setter>
-        </Style>
-        <Style x:Key="collection-view-todos-style" TargetType="CollectionView">
-            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource color-list-totdos-box-view-light}, Dark={StaticResource color-list-totdos-box-view-dark}}"></Setter>
-            
-        </Style>
-    </ContentView.Resources>
-
     <Frame Style="{StaticResource frame-border-items-style}">
         <StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="{Binding ListName}" Style="{StaticResource label-list-todos-title}"></Label>
                 <Label Text="{Binding GetCount}" Style="{StaticResource label-list-todos-title}" Margin="0"></Label>
             </StackLayout>
-            <CollectionView ItemsSource="{Binding Items}" 
-                            Style="{StaticResource collection-view-todos-style}">
+            <Frame>
+                <StackLayout BindableLayout.ItemsSource="{Binding Items}" 
+                             Style="{StaticResource collection-view-todos-style}"
+                             Spacing="0"
+                             Padding="10,16,10,4">
 
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <views:ActiveToDoItem Padding="10, 6, 10, 0" BindingContext="{Binding .}"></views:ActiveToDoItem>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-                <CollectionView.ItemsLayout>
-                        <LinearItemsLayout Orientation="Vertical"></LinearItemsLayout>
-                </CollectionView.ItemsLayout>
-            </CollectionView>
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <views:ActiveToDoItem Padding="0,0,0,6" BindingContext="{Binding .}"></views:ActiveToDoItem>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </Frame>
         </StackLayout>
     </Frame>
 </ContentView>
