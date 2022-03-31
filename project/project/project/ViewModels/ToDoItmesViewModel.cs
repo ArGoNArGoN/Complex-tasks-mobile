@@ -8,15 +8,19 @@
 	{
 		/// <summary>
 		/// VM активных задач.
-		/// Чтобы задать новый, продублируй и прокинь на View в BindingContext 
 		/// </summary>
 		public ActiveToDoListViewModel ActiveToDoListViewModel { get; }
+		/// <summary>
+		/// VM ожидающих задач.
+		/// </summary>
+		public PendingToDoListViewModel PendingToDoListViewModel { get; }
 		/// <summary>
 		/// Инициализирует VM для работы с задачами
 		/// </summary>
 		public ToDoItmesViewModel()
 		{
 			ActiveToDoListViewModel = new ActiveToDoListViewModel();
+			PendingToDoListViewModel = new PendingToDoListViewModel();
 		}
 	}
 }
