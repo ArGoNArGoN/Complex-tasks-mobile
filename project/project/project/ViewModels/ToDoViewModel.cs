@@ -58,6 +58,9 @@ namespace project.ViewModels
 			ToDo = toDo ?? new T();
 		}
 
+		/// <summary>
+		/// true - подзадач нет, false - подзадачи есть
+		/// </summary>
 		public Boolean IsEmptySubToDos { get => this.ToDo.SubToDosIsEmpty; }
 
 		public virtual Int32 GetCountCompletedSubToDos { get => this.ToDo.SubToDos.OfType<CompletedSubToDo>().Count(); }

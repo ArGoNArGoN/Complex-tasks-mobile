@@ -7,6 +7,8 @@ namespace project.Models
     public class ToDoModel
         : BaseToDoModel
     {
+        protected String description = "";
+
         public ToDoModel() 
             : this(new List<SubToDo>()) { }
         public ToDoModel(IEnumerable<SubToDo> subToDos)
@@ -16,10 +18,13 @@ namespace project.Models
         }
 
         /// <summary>
+        /// Описание задачи
+        /// </summary>
+        public String Description { get => this.description; set => description = value?.Trim() ?? ""; }
+        /// <summary>
         /// Список подзадач. 
         /// </summary>
         public IEnumerable<SubToDo> SubToDos { get; }
-
         /// <summary>
         /// Проверяет, существуют ли подзадачи
         /// </summary>

@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="project.Views.ToDoItemView">
+
+    <ContentPage.Resources>
+        
+    </ContentPage.Resources>
+    
+    <ContentPage.Content>
+        <RefreshView>
+            <StackLayout>
+                <!-- Title -->
+                <Frame>
+                    <StackLayout>
+                        <Label>Задача</Label>
+
+                        <Frame>
+                            <Label Text="{Binding Title}"></Label>
+                        </Frame>
+                    </StackLayout>
+                </Frame>
+
+                <!-- Description -->
+                <Frame>
+                    <StackLayout>
+                        <Label>Описание задачи</Label>
+                        
+                        <Frame>
+                            <Label Text="{Binding Description}"></Label>
+                        </Frame>
+                    </StackLayout>
+                </Frame>
+
+                <!-- SubsToDo -->
+                <Frame>
+                    <StackLayout>
+                        <Label>Подзадачи</Label>
+
+                        <StackLayout>
+                            <!-- Подзадачи -->
+                        </StackLayout>
+                    </StackLayout>
+                </Frame>
+
+                <!-- Document -->
+                <Frame>
+                    <Label>Тут документ</Label>
+                </Frame>
+            </StackLayout>
+        </RefreshView>
+    </ContentPage.Content>
+</ContentPage>
