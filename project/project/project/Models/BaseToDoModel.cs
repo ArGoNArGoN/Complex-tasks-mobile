@@ -8,13 +8,11 @@ namespace project.Models
 	public class BaseToDoModel
 		: BaseModel
 	{
-        private String title;
+        private String title = "";
         private Int32 count;
         private DateTime endDate;
 
-        public BaseToDoModel()
-        {
-        }
+        public BaseToDoModel() { }
 
         /// <summary>
         /// Короткое название

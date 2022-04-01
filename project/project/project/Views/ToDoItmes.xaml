@@ -20,7 +20,11 @@
 
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
-                            <views:ToDoItem Padding="0,0,0,6" BindingContext="{Binding .}"></views:ToDoItem>
+                            <views:ToDoItem Padding="0,0,0,6" BindingContext="{Binding .}">
+                                <views:ToDoItem.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"></TapGestureRecognizer>
+                                </views:ToDoItem.GestureRecognizers>
+                            </views:ToDoItem>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </StackLayout>
