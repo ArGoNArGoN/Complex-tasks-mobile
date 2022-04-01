@@ -13,14 +13,18 @@
                 <Label Text="{Binding GetCount}" Style="{StaticResource label-list-todos-title}" Margin="0"></Label>
             </StackLayout>
             <Frame>
-                <StackLayout BindableLayout.ItemsSource="{Binding Items}"
+                <StackLayout BindableLayout.ItemsSource="{Binding Items}" 
                              Style="{StaticResource collection-view-todos-style}"
                              Spacing="0"
                              Padding="10,16,10,4">
 
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
-                            <views:ToDoItem Padding="0,0,0,6" BindingContext="{Binding .}"></views:ToDoItem>
+                            <views:ToDoItem Padding="0,0,0,6" BindingContext="{Binding .}">
+                                <views:ToDoItem.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"></TapGestureRecognizer>
+                                </views:ToDoItem.GestureRecognizers>
+                            </views:ToDoItem>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </StackLayout>
