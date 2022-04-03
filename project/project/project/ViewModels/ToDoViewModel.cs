@@ -1,5 +1,6 @@
 ﻿using project.Models;
 using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace project.ViewModels
@@ -39,6 +40,7 @@ namespace project.ViewModels
 			get { return ToDo.Count; }
 			protected set { ToDo.Count = value > 0 ? value : throw new ArgumentException("value > 0", nameof(value)); }
         }
+		public virtual ObservableCollection<SubToDoViewModel> SubToDos { get; } = new ObservableCollection<SubToDoViewModel>();
 
 		/// <summary>
 		/// Создает пустой объект
@@ -56,6 +58,27 @@ namespace project.ViewModels
 			: this()
 		{
 			ToDo = toDo ?? new T();
+			SubToDos = new ObservableCollection<SubToDoViewModel>(ToDo.SubToDos.Select(x => new SubToDoViewModel(x)));
+			SubToDos.ToList().ForEach(x => x.StatusEdit += OnStatusChanged);
+		}
+
+		private void OnStatusChanged(Object sender, EventArgs e)
+        {
+			var vm = sender as SubToDoViewModel;
+
+			if (vm is null)
+				throw new InvalidCastException("sender is not SubToDoViewModel");
+
+			SubToDo subToDo = null;
+
+			/// тут какая-то логика с бд
+			if (vm.Status)
+				subToDo = new ActiveSubToDo(vm.SubTo);
+			else
+				subToDo = new CompletedSubToDo(vm.SubTo);
+			/// тут какая-то логика с бд ЗАКОНЧИЛАСЬ
+
+			vm.SubTo = subToDo;
 		}
 
 		/// <summary>

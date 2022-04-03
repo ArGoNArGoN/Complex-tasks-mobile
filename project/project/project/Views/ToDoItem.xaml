@@ -44,11 +44,8 @@
                                 <Setter Property="HorizontalTextAlignment" Value="Center"></Setter>
                             </Style>
                         </Grid.Resources>
-                        
-                        <Label VerticalTextAlignment="Start"
-                               HorizontalTextAlignment="Center"
-                               FontAttributes="Bold"
-                               TextColor="Red">
+
+                        <Label Style="{StaticResource lable-warning-todo-style}">
 
                             <Label.Triggers>
                                 <DataTrigger Binding="{Binding GetStatus}" Value="{Static local:StatusToDo.Overdue}" TargetType="Label">
@@ -69,7 +66,7 @@
                             </Grid.ColumnDefinitions>
 
                             <StackLayout Grid.Column="0" Orientation="Horizontal" VerticalOptions="Center">
-                                <BoxView HeightRequest="50" WidthRequest="50" CornerRadius="5" VerticalOptions="Center" BackgroundColor="{AppThemeBinding Light=WhiteSmoke, Dark={StaticResource color-list-totdos-box-view-dark}}"></BoxView>
+                                <BoxView HeightRequest="50" WidthRequest="50" CornerRadius="5" VerticalOptions="Center" BackgroundColor="{AppThemeBinding Light=WhiteSmoke, Dark={StaticResource color-conteiner-body-dark}}"></BoxView>
                                 <Label Margin="4, 0, 0, 0" VerticalOptions="Center" Text="{Binding Title}" Style="{StaticResource label-normal-text-style}"></Label>
                                 <Label VerticalOptions="Center" Text="{Binding Count}" Style="{StaticResource label-normal-text-style}"></Label>
                                 <Label VerticalOptions="Center" Text="шт." Style="{StaticResource label-normal-text-style}"></Label>

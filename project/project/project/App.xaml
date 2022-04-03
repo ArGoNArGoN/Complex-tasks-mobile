@@ -10,8 +10,8 @@
             <Color x:Key="color-totdo-box-border-light">Black</Color>
             <Color x:Key="color-totdo-box-border-dark">Gray</Color>
             
-            <Color x:Key="color-list-totdos-box-view-light">White</Color>
-            <Color x:Key="color-list-totdos-box-view-dark">#3E2C41</Color>
+            <Color x:Key="color-conteiner-body-light">White</Color>
+            <Color x:Key="color-conteiner-body-dark">#3E2C41</Color>
 
             <Color x:Key="color-line-light">Black</Color>
             <Color x:Key="color-line-dark">Gray</Color>
@@ -27,9 +27,8 @@
 			<Style x:Key="frame-base-style" TargetType="Frame">
 				<Setter Property="Padding" Value="0"></Setter>
 				<Setter Property="CornerRadius" Value="0"></Setter>
-				<Setter Property="BackgroundColor" Value="Transparent"></Setter>
-                <Setter Property="BackgroundColor" Value="DimGray"></Setter>
-			</Style>
+                <Setter Property="BackgroundColor" Value="Transparent"></Setter>
+            </Style>
 
             <Style x:Key="label-normal-text-style" TargetType="Label">
                 <Setter Property="FontSize" Value="26"></Setter>
@@ -48,19 +47,56 @@
                 <Setter Property="Margin" Value="0, 10"></Setter>
             </Style>
             <Style x:Key="collection-view-todos-style" TargetType="CollectionView">
-                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource color-list-totdos-box-view-light}, Dark={StaticResource color-list-totdos-box-view-dark}}"></Setter>
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource color-conteiner-body-light}, Dark={StaticResource color-conteiner-body-dark}}"></Setter>
             </Style>
 
+            <Style x:Key="button-base-style" TargetType="Button">
+                <Setter Property="CornerRadius" Value="18"></Setter>
+                <Setter Property="TextColor" Value="{AppThemeBinding Light=Black, Dark=WhiteSmoke}"></Setter>
+                <Setter Property="BorderColor" Value="{AppThemeBinding Light=Black, Dark=WhiteSmoke}"></Setter>
+                <Setter Property="Padding" Value="20, 0"></Setter>
+                <Setter Property="BorderWidth" Value="3"></Setter>
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource color-conteiner-body-light}, Dark={StaticResource color-conteiner-body-dark}}"></Setter>
+            </Style>
+            
             <Style x:Key="frame-body-todo-style" TargetType="Frame">
                 <Setter Property="CornerRadius" Value="24"></Setter>
                 <Setter Property="BackgroundColor" Value="Transparent"></Setter>
                 <Setter Property="Margin" Value="1"></Setter>
             </Style>
 
-            <Style TargetType="BoxView" BasedOn="{StaticResource box-view-base-style}"></Style>
+            <Style x:Key="lable-warning-todo-style" TargetType="Label">
+                <Setter Property="TextColor" Value="Red"></Setter>
+                <Setter Property="FontAttributes" Value="None"></Setter>
+                <Setter Property="HorizontalTextAlignment" Value="Center"></Setter>
+                <Setter Property="VerticalTextAlignment" Value="Start"></Setter>
+            </Style>
+
+            <Style x:Key="grid-container-end-style" TargetType="Grid">
+                <Setter Property="ColumnDefinitions">
+                    <Setter.Value>
+                        <ColumnDefinitionCollection>
+                            <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                        </ColumnDefinitionCollection>
+                    </Setter.Value>
+                </Setter>
+            </Style>
             
+            <Style x:Key="box-view-end-style" TargetType="BoxView" BasedOn="{StaticResource box-view-base-style}">
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=Black, Dark=White}"></Setter>
+                <Setter Property="HeightRequest" Value="2"></Setter>
+                <Setter Property="CornerRadius" Value="1"></Setter>
+                <Setter Property="Grid.Column" Value="1"></Setter>
+                <Setter Property="VerticalOptions" Value="Center"></Setter>
+            </Style>
+
+            <Style TargetType="BoxView" BasedOn="{StaticResource box-view-base-style}"></Style>
+
             <Style TargetType="Label" BasedOn="{StaticResource label-base-style}"></Style>
             <Style TargetType="Frame" BasedOn="{StaticResource frame-base-style}"></Style>
+            <Style TargetType="Button" BasedOn="{StaticResource button-base-style}"></Style>
         </ResourceDictionary>
 	</Application.Resources>
 </Application>
