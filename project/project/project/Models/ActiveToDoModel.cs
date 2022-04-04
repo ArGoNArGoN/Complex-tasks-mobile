@@ -16,12 +16,12 @@ namespace project.Models
         /// Инициализирует Активную задачу.
         /// </summary>
         public ActiveToDoModel()
-			: base(new List<SubToDo>()) { }
+			: base(new List<SubToDoModel>()) { }
 		/// <summary>
 		/// Инициализирует Активную задачу с подзадачами.
 		/// </summary>
 		/// <param name="subToDos">Подзадачи</param>
-		public ActiveToDoModel(IEnumerable<SubToDo> subToDos)
+		public ActiveToDoModel(IEnumerable<SubToDoModel> subToDos)
 			: base(subToDos) { }
     }
 }

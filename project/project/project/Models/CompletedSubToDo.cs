@@ -5,10 +5,12 @@ using System.Text;
 namespace project.Models
 {
     public class CompletedSubToDo
-        : SubToDo
+        : SubToDoModel
     {
         public CompletedSubToDo() { }
-        public CompletedSubToDo(SubToDo subTo)
+        public CompletedSubToDo(Int32 identity)
+            : base(identity) { }
+        public CompletedSubToDo(SubToDoModel subTo)
             : base(subTo?.Identity ?? throw new ArgumentNullException(nameof(subTo)))
         {
             this.Title = subTo.Title;

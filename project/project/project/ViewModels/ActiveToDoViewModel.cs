@@ -1,5 +1,6 @@
 ﻿using project.Models;
 using System;
+using System.Windows.Input;
 
 namespace project.ViewModels
 {
@@ -36,5 +37,5 @@ namespace project.ViewModels
 			/// естественно переделать
 			return new PendingToDoViewModel(new PendingToDoModel(this.ToDo.SubToDos) { Title = this.ToDo.Title, Count = this.ToDo.Count, EndDate = this.ToDo.EndDate });
 		}
-	}
+    }
 }

@@ -13,7 +13,7 @@ namespace project.ViewModels
 	public class SubToDoViewModel
 		: BaseViewModel
 	{
-		private SubToDo subTo;
+		private SubToDoModel subTo;
 
 		/// <summary>
 		/// Событие изменения статуса
@@ -23,7 +23,7 @@ namespace project.ViewModels
 		/// <summary>
 		/// Дополнительная задача
 		/// </summary>
-		public SubToDo SubTo 
+		public SubToDoModel SubTo 
 		{ 
 			get => subTo;
 			set
@@ -39,7 +39,7 @@ namespace project.ViewModels
 		/// Конструирует VM с subTo
 		/// </summary>
 		/// <param name="subTo">Дополнительная задача. Не может быть null</param>
-		public SubToDoViewModel(SubToDo subTo)
+		public SubToDoViewModel(SubToDoModel subTo)
         {
             SubTo = subTo ??
 				throw new ArgumentNullException(nameof(subTo));

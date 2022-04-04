@@ -17,7 +17,7 @@
         <ToolbarItem Text="Обновить"></ToolbarItem>
     </ContentPage.ToolbarItems>
 
-    <RefreshView>
+    <RefreshView Command="{Binding Refresh}" IsRefreshing="{Binding IsRefreshing}">
         <ScrollView>
             <StackLayout Spacing="0">
                 <views:ToDoItems BindingContext="{Binding ActiveToDoListViewModel}"></views:ToDoItems>

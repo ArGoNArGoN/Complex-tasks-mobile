@@ -99,9 +99,9 @@
                                 <Label Grid.Row="0" Style="{StaticResource label-date-style}"></Label>
                                 <BoxView Grid.Row="1" CornerRadius="3" HorizontalOptions="Center" WidthRequest="20"></BoxView>
                                 <StackLayout Grid.Row="2" Orientation="Horizontal" HorizontalOptions="Center">
-                                    <Label Text="{Binding GetCountCompletedSubToDos}"></Label>
+                                    <Label Text="{Binding GetCountCompletedSubToDos, Mode=TwoWay}"></Label>
                                     <Label Text="из" Margin="-2, 0"></Label>
-                                    <Label Text="{Binding GetAllCountSubToDos}"></Label>
+                                    <Label Text="{Binding GetAllCountSubToDos, Mode=TwoWay}"></Label>
                                 </StackLayout>
                             </Grid>
 
