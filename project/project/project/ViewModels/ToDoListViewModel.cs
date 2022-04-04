@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace project.ViewModels
 {
@@ -14,7 +16,7 @@ namespace project.ViewModels
         : BaseViewModel
         where T : ToDoViewModel<V>
         where V : ToDoModel, new()
-    {
+	{
 		private String listName = "";
 
 		public ToDoListViewModel()
@@ -49,8 +51,18 @@ namespace project.ViewModels
 
 			foreach (var item in enumerable)
 				Items.Add(item);
+
+			OnPropertyChanged(nameof(GetCount));
 		}
 
 		public Int32 GetCount { get => Items.Count; }
+
+		/// <summary>
+		/// Команда на обновление
+		/// </summary>
+		public virtual ICommand Refresh
+		{
+			get => new Command(() => { });
+		}
 	}
 }

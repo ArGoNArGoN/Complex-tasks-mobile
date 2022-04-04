@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace project.ViewModels
@@ -14,7 +16,7 @@ namespace project.ViewModels
         /// <summary>
         /// Заменить на интерфейс
         /// </summary>
-        private ToDoDataStore service = DependencyService.Get<ToDoDataStore>();
+        private PendingToDoRepository service = DependencyService.Get<PendingToDoRepository>();
 
         /// <summary>
         /// Загружает данные
@@ -23,7 +25,17 @@ namespace project.ViewModels
             : base()
         {
             ListName = "Ожидающие";
-            SetItmes(service.Get().OfType<PendingToDoModel>().Select(x => new PendingToDoViewModel(x)));
+            SetItmesAsync();
         }
+
+        public async void SetItmesAsync()
+        {
+            var items = await Task.Run(() => service.Get());
+
+            SetItmes(items.Select(x => new PendingToDoViewModel(x)));
+        }
+
+        public override ICommand Refresh
+            => new Command(SetItmesAsync);
     }
 }

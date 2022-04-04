@@ -1,6 +1,8 @@
 ﻿using project.Models;
 using project.Services;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace project.ViewModels
@@ -14,7 +16,7 @@ namespace project.ViewModels
         /// <summary>
         /// Заменить на интерфейс
         /// </summary>
-        private ToDoDataStore service = DependencyService.Get<ToDoDataStore>();
+        private ActiveToDoRepository service = DependencyService.Get<ActiveToDoRepository>();
 
         /// <summary>
         /// Загружает данные
@@ -23,7 +25,17 @@ namespace project.ViewModels
             : base()
         {
             ListName = "Активные";
-            SetItmes(service.Get().OfType<ActiveToDoModel>().Select(x => new ActiveToDoViewModel(x)));
+            SetItmesAsync();
         }
+
+        public async void SetItmesAsync()
+        {
+            var items = await Task.Run(() => service.Get());
+
+            SetItmes(items.Select(x => new ActiveToDoViewModel(x)));
+        }
+
+        public override ICommand Refresh
+            => new Command(SetItmesAsync);
     }
 }

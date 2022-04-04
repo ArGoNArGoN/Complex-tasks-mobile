@@ -3,10 +3,12 @@
 namespace project.Models
 {
     public class ActiveSubToDo
-        : SubToDo
+        : SubToDoModel
     {
         public ActiveSubToDo() { }
-        public ActiveSubToDo(SubToDo subTo)
+        public ActiveSubToDo(Int32 identity) 
+            : base(identity) { }
+        public ActiveSubToDo(SubToDoModel subTo)
             : base(subTo?.Identity ?? throw new ArgumentNullException(nameof(subTo)))
         {
             this.Title = subTo.Title;

@@ -11,12 +11,12 @@ namespace project.Models
 		/// Инициализирует Ожидающую задачу.
 		/// </summary>
 		public PendingToDoModel()
-			: base(new List<SubToDo>()) { }
+			: base(new List<SubToDoModel>()) { }
 		/// <summary>
 		/// Инициализирует Ожидающую задачу с подзадачами.
 		/// </summary>
 		/// <param name="subToDos">Подзадачи</param>
-		public PendingToDoModel(IEnumerable<SubToDo> subToDos)
+		public PendingToDoModel(IEnumerable<SubToDoModel> subToDos)
 			: base(subToDos) { }
 	}
 }

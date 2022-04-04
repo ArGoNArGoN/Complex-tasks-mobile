@@ -1,11 +1,12 @@
 ﻿using project.Services;
+using SQLite;
 using System;
+using System.IO;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace project
 {
-	public partial class App : Application
+    public partial class App : Application
 	{
 		public App()
 		{
@@ -17,7 +18,11 @@ namespace project
 			this.MainPage = new MainPage();
 		}
 
-        private void RegisterRoute()
+		private const string DATABASE_NAME = "todos.db";
+		public static readonly SQLiteConnection connection = new SQLiteConnection(Path.Combine(
+							Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), DATABASE_NAME));
+
+		private void RegisterRoute()
         {
 			/// регистрация основных view
 			Routing.RegisterRoute(nameof(Views.ListToDoView).ToLower(), typeof(Views.ListToDoView)); /// список задач
@@ -29,7 +34,8 @@ namespace project
 
 		private void RegisterDataStore()
 		{
-			DependencyService.Register<ToDoDataStore>();
+			DependencyService.RegisterSingleton<ActiveToDoRepository>(new ActiveToDoRepository());
+			DependencyService.RegisterSingleton<PendingToDoRepository>(new PendingToDoRepository());
 		}
 
 		protected override void OnStart()

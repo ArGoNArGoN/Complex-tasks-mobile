@@ -10,11 +10,11 @@ namespace project.Models
         protected String description = "";
 
         public ToDoModel() 
-            : this(new List<SubToDo>()) { }
-        public ToDoModel(IEnumerable<SubToDo> subToDos)
+            : this(new List<SubToDoModel>()) { }
+        public ToDoModel(IEnumerable<SubToDoModel> subToDos)
             : base()
         {
-            SubToDos = subToDos ?? new List<SubToDo>();
+            SubToDos = subToDos ?? new List<SubToDoModel>();
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace project.Models
         /// <summary>
         /// Список подзадач. 
         /// </summary>
-        public IEnumerable<SubToDo> SubToDos { get; }
+        public IEnumerable<SubToDoModel> SubToDos { get; }
         /// <summary>
         /// Проверяет, существуют ли подзадачи
         /// </summary>
