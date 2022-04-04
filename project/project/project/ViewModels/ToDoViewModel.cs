@@ -88,9 +88,7 @@ namespace project.ViewModels
 
 			vm.SubTo = subToDo;
 
-			OnPropertyChanged(nameof(GetCountCompletedSubToDos));
-			OnPropertyChanged(nameof(GetCountActiveSubToDos));
-			OnPropertyChanged(nameof(GetAllCountSubToDos));
+			OnUpdateView();
 		}
 
 		/// <summary>
@@ -116,6 +114,13 @@ namespace project.ViewModels
 				: ToDo.EndDate - DateTime.Now < new TimeSpan(1, 0, 0, 0) ? StatusToDo.Urgently
 				: ToDo.EndDate - DateTime.Now < new TimeSpan(2, 0, 0, 0) ? StatusToDo.Priority
 				: StatusToDo.None;
+		}
+
+		protected virtual void OnUpdateView()
+        {
+			OnPropertyChanged(nameof(GetCountCompletedSubToDos));
+			OnPropertyChanged(nameof(GetCountActiveSubToDos));
+			OnPropertyChanged(nameof(GetAllCountSubToDos));
 		}
 	}
 }

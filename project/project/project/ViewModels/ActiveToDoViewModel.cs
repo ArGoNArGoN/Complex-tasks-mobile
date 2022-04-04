@@ -37,5 +37,13 @@ namespace project.ViewModels
 			/// естественно переделать
 			return new PendingToDoViewModel(new PendingToDoModel(this.ToDo.SubToDos) { Title = this.ToDo.Title, Count = this.ToDo.Count, EndDate = this.ToDo.EndDate });
 		}
+
+        protected override void OnUpdateView()
+        {
+			OnPropertyChanged(nameof(ItsPossibleCommit));
+			OnPropertyChanged(nameof(ItsPossibleRollback));
+
+			base.OnUpdateView();
+        }
     }
 }
