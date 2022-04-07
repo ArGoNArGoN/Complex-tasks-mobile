@@ -20,7 +20,7 @@ namespace project.ViewModels
 		/// </summary>
 		public override bool ItsPossibleCommit => base.ItsPossibleCommit;
 
-		public override BaseViewModel Commiit()
+		public override BaseViewModel Commit()
 		{
 			if (!ItsPossibleCommit)
 				throw new Exception("Ошибка при проведении Ожидающей задачи. Action: Commiit");

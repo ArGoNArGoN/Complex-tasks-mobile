@@ -47,7 +47,7 @@ namespace project.ViewModels
 		/// </summary>
 		public virtual IDictionary<String, ICommand> SubCommands { get; protected set; }
 
-		public abstract BaseViewModel Commiit();
+		public abstract BaseViewModel Commit();
 		public abstract BaseViewModel Rollback();
 	}
 }

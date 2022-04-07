@@ -11,7 +11,7 @@ namespace project.ViewModels
 		Boolean ItsPossibleCommit { get; }
 		Boolean ItsPossibleRollback { get; }
 
-		BaseViewModel Commiit();
+		BaseViewModel Commit();
 		BaseViewModel Rollback();
 	}
 }

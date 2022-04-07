@@ -20,7 +20,7 @@ namespace project.ViewModels
         public override Boolean ItsPossibleRollback 
 			=> IsEmptySubToDos || this.GetCountCompletedSubToDos == 0;
 
-        public override BaseViewModel Commiit()
+        public override BaseViewModel Commit()
 		{
 			if (!ItsPossibleCommit)
 				throw new Exception("Ошибка при проведении Активной задачи. Action: Commiit");
