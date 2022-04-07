@@ -6,7 +6,7 @@ namespace project.Models
 	/// Базовая модель задачи
 	/// </summary>
 	public class BaseToDoModel
-		: BaseModel
+		: BaseModel, IAggregateRoot
 	{
 		private Int32 id = 0;
 		protected String title = "";

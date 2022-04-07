@@ -9,9 +9,14 @@ using System.Threading.Tasks;
 namespace project.Services
 {
     public class ActiveToDoRepository
-		: BaseToDoRepository
+		: BaseToDoRepository, IRepository<ActiveToDoModel, Int32>
 	{
-		public IEnumerable<ActiveToDoModel> Get()
+        public void Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<ActiveToDoModel> Get()
         {
 			var entitys = ToDoContext.Select().ToList();
 			var subentitys = SubToDoContext.Select().ToList();
@@ -35,5 +40,15 @@ namespace project.Services
 
 			return list;
         }
-	}
+
+        public ActiveToDoModel Get(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Save(ActiveToDoModel item)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
