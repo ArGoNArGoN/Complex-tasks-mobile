@@ -141,30 +141,5 @@ namespace project.Models
 
 			OnPropertyChanged(nameof(CountItmes));
 		}
-		/// <summary>
-		/// Обновляет элемент в коллекции и обновляет в Repository
-		/// </summary>
-		/// <param name="item">Задача</param>
-		public virtual void Upload(T item)
-		{
-			if (item is null)
-				throw new ArgumentNullException(nameof(item));
-
-			try
-			{
-				Repository.Save(item);
-			}
-			catch (Exception ex)
-			{
-				Log.Warning("ERROR", ex.ToString());
-				throw;
-			}
-			finally
-			{
-				this.ReloadItems();
-			}
-
-			OnPropertyChanged(nameof(CountItmes));
-		}
 	}
 }
