@@ -3,30 +3,53 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="project.Views.ToDoItems"
              xmlns:viewModels="clr-namespace:project.ViewModels"
-             xmlns:views="clr-namespace:project.Views"
-             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core">
+             xmlns:views="clr-namespace:project.Views" 
+             xmlns:selector="clr-namespace:project.Views.DataTemplateSelectors">
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="ToDoTemplate">
+                <views:ToDoItem Padding="0,0,0,6" BindingContext="{Binding .}">
+                    <views:ToDoItem.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OnTapped}" CommandParameter="{Binding .}"></TapGestureRecognizer>
+                    </views:ToDoItem.GestureRecognizers>
+                </views:ToDoItem>
+            </DataTemplate>
+            <DataTemplate x:Key="ToDoSubsTemplate">
+                <views:ToDoSubsItem Padding="0,0,0,6" BindingContext="{Binding .}">
+                    <views:ToDoSubsItem.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OnTapped}" CommandParameter="{Binding .}"></TapGestureRecognizer>
+                    </views:ToDoSubsItem.GestureRecognizers>
+                </views:ToDoSubsItem>
+            </DataTemplate>
+            <DataTemplate x:Key="BaseToDoTemplate">
+                <views:ToDoItem Padding="0,0,0,6" BindingContext="{Binding .}">
+                    <views:ToDoItem.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OnTapped}" CommandParameter="{Binding .}"></TapGestureRecognizer>
+                    </views:ToDoItem.GestureRecognizers>
+                </views:ToDoItem>
+            </DataTemplate>
+            
+            <selector:ToDoItemDataTemplateSelector x:Key="slectorToDo"
+                                                   ToDoTemplate="{StaticResource ToDoTemplate}"
+                                                   ToDoSubsTemplate="{StaticResource ToDoSubsTemplate}"
+                                                   BaseToDoTemplate="{StaticResource BaseToDoTemplate}">
+            </selector:ToDoItemDataTemplateSelector>
+        </ResourceDictionary>
+    </ContentView.Resources>
 
     <Frame Style="{StaticResource frame-border-items-style}">
         <StackLayout>
             <StackLayout Orientation="Horizontal">
-                <Label Text="{Binding ListName}" Style="{StaticResource label-list-todos-title}"></Label>
-                <Label Text="{Binding GetCount}" Style="{StaticResource label-list-todos-title}" Margin="0"></Label>
+                <Label Text="{Binding TitleCollection, StringFormat='{0}:'}" Style="{StaticResource label-list-todos-title}"></Label>
+                <Label Text="{Binding CollectionViewModels.Count}" Style="{StaticResource label-list-todos-title}" Margin="0"></Label>
             </StackLayout>
             <Frame>
-                <StackLayout BindableLayout.ItemsSource="{Binding Items}" 
+                <StackLayout BindableLayout.ItemsSource="{Binding CollectionViewModels}" 
+                             BindableLayout.ItemTemplateSelector="{StaticResource slectorToDo}"
                              Style="{StaticResource collection-view-todos-style}"
                              Spacing="0"
                              Padding="10,16,10,4">
-
-                    <BindableLayout.ItemTemplate>
-                        <DataTemplate>
-                            <views:ToDoItem Padding="0,0,0,6" BindingContext="{Binding .}">
-                                <views:ToDoItem.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"></TapGestureRecognizer>
-                                </views:ToDoItem.GestureRecognizers>
-                            </views:ToDoItem>
-                        </DataTemplate>
-                    </BindableLayout.ItemTemplate>
                 </StackLayout>
             </Frame>
         </StackLayout>

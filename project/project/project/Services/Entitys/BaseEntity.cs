@@ -5,7 +5,7 @@ using System.Text;
 
 namespace project.Services.Entitys
 {
-    internal abstract class BaseEntity
+    public abstract class BaseEntity
     {
         [PrimaryKey]
         [AutoIncrement]

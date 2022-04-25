@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:views="clr-namespace:project.Views"
+             xmlns:converter="clr-namespace:project.Views.DataTemplateSelectors"
+             x:Class="project.Views.ToDoTemplateSelector">
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converter:ToDoTemplateSelector x:Key="converter"></converter:ToDoTemplateSelector>
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <ContentView.Triggers>
+    </ContentView.Triggers>
+
+    <ContentView.Content>
+        <StackLayout>
+            <Frame Padding="0,0,0,3" HorizontalOptions="FillAndExpand" BackgroundColor="#0099cc" HasShadow="True">
+                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+
+                    <StackLayout.Resources>
+                        <Style TargetType="Label" BasedOn="{StaticResource label-normal-text-style}">
+                            <Setter Property="HorizontalOptions" Value="FillAndExpand"></Setter>
+                            <Setter Property="HorizontalTextAlignment" Value="Center"></Setter>
+                            <Setter Property="TextColor" Value="WhiteSmoke"></Setter>
+                        </Style>
+                    </StackLayout.Resources>
+
+                    <Label BindingContext="{Binding GetState}" Text="{Binding Value}"></Label>
+                </StackLayout>
+            </Frame>
+            <Frame Padding="16,0,16,18">
+                <Frame.Triggers>
+                    <DataTrigger Binding="{Binding ., Converter={StaticResource converter}}" Value="ToDoViewModel" TargetType="Frame">
+                        <Setter Property="Content">
+                            <Setter.Value>
+                                <views:ToDo BindingContext="{Binding .}"></views:ToDo>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+
+                    <DataTrigger Binding="{Binding ., Converter={StaticResource converter}}" Value="ToDoSubsViewModel" TargetType="Frame">
+                        <Setter Property="Content">
+                            <Setter.Value>
+                                <views:ToDoSubs BindingContext="{Binding .}"></views:ToDoSubs>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+
+                    <DataTrigger Binding="{Binding ., Converter={StaticResource converter}}" Value="{x:Null}" TargetType="Frame">
+                        <Setter Property="Content">
+                            <Setter.Value>
+                                <Label Style="{StaticResource label-base-style}" Text="Упс! Данная задача не поддерживает отображение!"></Label>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                </Frame.Triggers>
+            </Frame>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

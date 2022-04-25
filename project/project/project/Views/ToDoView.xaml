@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:viewmodels="clr-namespace:project.ViewModels" 
+             xmlns:views="clr-namespace:project.Views" 
+             Title="{Binding TitlePage, StringFormat='ID: {0}'}"
+             Style="{StaticResource content-page-base-style}"
+             x:DataType="viewmodels:ToDoViewViewModel"
+             x:Class="project.Views.ToDoView">
+    
+    <!--
+        Отображает все, что связано с ToDo
+        
+        Иерархия по частоте использования:
+            
+        ToDo
+        Comments
+        Events
+    -->
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding BackCommand}"></BackButtonBehavior>
+    </Shell.BackButtonBehavior>
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Обновить" Command="{Binding OnRefrashCommand}"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="frame-board" TargetType="Frame" BasedOn="{StaticResource frame-base-style}">
+                <Setter Property="BorderColor" Value="{AppThemeBinding Light={StaticResource color-totdo-box-border-light}, Dark={StaticResource color-totdo-box-border-dark}}"></Setter>
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource color-conteiner-body-light}, Dark={StaticResource color-conteiner-body-dark}}"></Setter>
+                <Setter Property="CornerRadius" Value="6"></Setter>
+                <Setter Property="Padding" Value="8"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <Frame>
+            <RefreshView IsRefreshing="{Binding IsRefrash}" Command="{Binding RefrashCommand}">
+                <ScrollView>
+                    <StackLayout Padding="10,10,10,0">
+                        
+                        <!-- Описывает задачу -->
+                        <Frame Style="{StaticResource frame-board}" Padding="0">
+                            <views:ToDoTemplateSelector BindingContext="{Binding ToDoViewModel}"></views:ToDoTemplateSelector>
+                        </Frame>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                
+                            <BoxView Grid.Column="1" Style="{StaticResource box-view-end-style}"></BoxView>
+                        </Grid>
+
+                        <!-- Описывает комментарии -->
+                        <Frame Style="{StaticResource frame-board}">
+                            <Grid RowSpacing="4">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <Label Grid.Row="0"
+                                       Margin="10,0,0,0"
+                                       Style="{StaticResource label-normal-text-style}"
+                                       HorizontalOptions="StartAndExpand" 
+                                       HorizontalTextAlignment="Start" 
+                                       VerticalTextAlignment="Center"
+                                       Text="Комментарии">
+                                </Label>
+
+                                <views:CommetsBoard Grid.Row="1" BindingContext="{Binding ColectionCommetsViewModel}"></views:CommetsBoard>
+                            </Grid>
+                        </Frame>
+
+                        <!-- Описывает события -->
+                        <Frame Style="{StaticResource frame-board}">
+                            <Grid RowSpacing="4">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <Label Grid.Row="0"
+                                       Margin="10,0,0,0"
+                                       Style="{StaticResource label-normal-text-style}"
+                                       HorizontalOptions="StartAndExpand" 
+                                       HorizontalTextAlignment="Start" 
+                                       VerticalTextAlignment="Center"
+                                       Text="События">
+                                </Label>
+                    
+                                <views:EventsBoard Grid.Row="1" BindingContext="{Binding ColectionEventsViewModel}"></views:EventsBoard>
+                            </Grid>
+                        </Frame>
+                    </StackLayout>
+                </ScrollView>
+            </RefreshView>
+        </Frame>
+    </ContentPage.Content>
+</ContentPage>

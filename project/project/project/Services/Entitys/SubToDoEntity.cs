@@ -6,11 +6,11 @@ using System.Text;
 namespace project.Services.Entitys
 {
 	[Table("SubToDo")]
-	internal class SubToDoEntity
+	public class SubToDoEntity
 		: BaseEntity
 	{
 		public Int32 ToDoIdentity { get; set; }
 		public String Title { get; set; }
-        public Int32 Status { get; set; }
+        public String Status { get; set; }
     }
 }
