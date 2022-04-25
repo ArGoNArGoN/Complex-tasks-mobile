@@ -1,15 +1,18 @@
-﻿using SQLite;
+﻿using Xamarin.Forms.Internals;
+
+using SQLite;
+
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using Xamarin.Forms.Internals;
+using System.Threading;
 
 namespace project.Services.Entitys
 {
-	internal class ToDoDataBaseContext
-		: BaseDataBaseContext
+    public class ToDoDataBaseContext
+		: BaseDataBaseContext, ICRUD<ToDoEntity>
 	{
+		private Mutex mutexObj = new Mutex();
+
 		public ToDoDataBaseContext(SQLiteConnection connection)
 			: base(connection) 
 		{
@@ -20,7 +23,7 @@ namespace project.Services.Entitys
         {
             try
             {
-				// connection.DropTable<ToDoEntity>();
+				connection.DropTable<ToDoEntity>();
 				connection.Table<ToDoEntity>().ToList();
 			}
             catch (Exception ex)
@@ -37,44 +40,58 @@ namespace project.Services.Entitys
 
 					Create(new ToDoEntity() 
 					{
-						Status = 1,
 						Title = "CRUD",
 						Count = 1,
 						EndTime = new DateTime(2022, 4, 4, 11, 45, 0),
 						Description = "Написать CRUD",
+					    Creator = "Thomas Miller",
+						Executor = "Luis Greene",
+						State = "Активная",
+						TypeTask = "ToDoSubs",
 					});
 					Create(new ToDoEntity()
 					{
-						Status = 1,
 						Title = "Брошюры",
 						Count = 120,
 						EndTime = DateTime.Now + new TimeSpan(0, 3, 0, 0),
-						Description = "Распечатать в стандартном виде. Посмотри, есть ли на складе серая бумага (хватит ли ее). Если нет, то прокинь событие. \nОсновные требования:\n- Обложка должна быть КАРТОННАЯ.\n- Брака не должно быть.За этим нужно следить.\n- Основные требования в документе",
+						Creator = "Thomas Miller",
+						Executor = "Luis Greene",
+						State = "Активная",
+						TypeTask = "ToDo",
 					});
 
 					Create(new ToDoEntity()
 					{
-						Status = 0,
 						Title = "Стенды",
 						Count = 3,
 						EndTime = DateTime.Now + new TimeSpan(0, 3, 0, 0),
 						Description = "Распечатать в стандартном виде. Посмотри, есть ли на складе серая бумага (хватит ли ее). Если нет, то прокинь событие. \nОсновные требования:\n- Обложка должна быть КАРТОННАЯ.\n- Брака не должно быть.За этим нужно следить.\n- Основные требования в документе",
+						Creator = "Thomas Miller",
+						Executor = "Luis Greene",
+						State = "Ожидающая",
+						TypeTask = "ToDo",
 					});
 					Create(new ToDoEntity()
 					{
-						Status = 0,
 						Title = "Крепежи",
 						Count = 132,
 						EndTime = DateTime.Now + new TimeSpan(3, 10, 0, 0),
 						Description = "Распечатать в стандартном виде. Посмотри, есть ли на складе серая бумага (хватит ли ее). Если нет, то прокинь событие. \nОсновные требования:\n- Обложка должна быть КАРТОННАЯ.\n- Брака не должно быть.За этим нужно следить.\n- Основные требования в документе",
+						Creator = "Bob",
+						Executor = "Luis Greene",
+						State = "Ожидающая",
+						TypeTask = "ToDo",
 					});
 					Create(new ToDoEntity()
 					{
-						Status = 0,
 						Title = "Рамки",
 						Count = 100,
 						EndTime = DateTime.Now + new TimeSpan(1, 3, 0, 0),
 						Description = "Распечатать в стандартном виде. Посмотри, есть ли на складе серая бумага (хватит ли ее). Если нет, то прокинь событие. \nОсновные требования:\n- Обложка должна быть КАРТОННАЯ.\n- Брака не должно быть.За этим нужно следить.\n- Основные требования в документе",
+						Creator = "Bob",
+						Executor = "Luis Greene",
+						State = "Ожидающая",
+						TypeTask = "ToDo",
 					});
 
 					Log.Warning("INFO", "Таблица \"ToDo\" Была заполнена.");
@@ -92,29 +109,54 @@ namespace project.Services.Entitys
 			if (entity is null)
 				throw new ArgumentNullException(nameof(entity));
 
+			mutexObj.WaitOne();
+
 			connection.Insert(entity);
+
+			mutexObj.ReleaseMutex();
 		}
 		public void Update(ToDoEntity entity)
 		{
 			if (entity is null)
 				throw new ArgumentNullException(nameof(entity));
 
+			mutexObj.WaitOne();
+
 			connection.Update(entity);
+
+			mutexObj.ReleaseMutex();
 		}
 		public void Delete(ToDoEntity entity)
 		{
 			if (entity is null)
 				throw new ArgumentNullException(nameof(entity));
 
+			mutexObj.WaitOne();
+			
 			connection.Delete<ToDoEntity>(entity);
+
+			mutexObj.ReleaseMutex();
 		}
-		public ToDoEntity Select(Int32 identity)
+		public ToDoEntity Read(Int32 identity)
 		{
-			return connection.Get<ToDoEntity>(identity);
+			mutexObj.WaitOne();
+
+			var list = connection.Get<ToDoEntity>(identity);
+
+			mutexObj.ReleaseMutex();
+
+			return list;
 		}
-		public IEnumerable<ToDoEntity> Select()
+
+        public IEnumerable<ToDoEntity> Read()
 		{
-			return connection.Table<ToDoEntity>();
+			mutexObj.WaitOne();
+
+			var list = connection.Table<ToDoEntity>();
+
+			mutexObj.ReleaseMutex();
+
+			return list;
 		}
-	}
+    }
 }

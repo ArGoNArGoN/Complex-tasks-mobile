@@ -4,20 +4,19 @@
              x:Class="project.Views.ListToDoView"
              xmlns:viewModels="clr-namespace:project.ViewModels"
              xmlns:views="clr-namespace:project.Views"
-             x:DataType="viewModels:ToDoItmesViewModel"
              Style="{DynamicResource content-page-base-style}"
              Title="Задачи:">
 
     <ContentPage.BindingContext>
-        <viewModels:ToDoItmesViewModel/>
+        <viewModels:CollectionStateViewModel/>
     </ContentPage.BindingContext>
 
     <!-- Command="{Binding ListReloadCommand}" -->
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Обновить"></ToolbarItem>
+        <ToolbarItem Text="Обновить" Command="{Binding RefreshButtonCommand}"></ToolbarItem>
     </ContentPage.ToolbarItems>
 
-    <RefreshView Command="{Binding Refresh}" IsRefreshing="{Binding IsRefreshing}">
+    <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}">
         <ScrollView>
             <StackLayout Spacing="0">
                 <views:ToDoItems BindingContext="{Binding ActiveToDoListViewModel}"></views:ToDoItems>

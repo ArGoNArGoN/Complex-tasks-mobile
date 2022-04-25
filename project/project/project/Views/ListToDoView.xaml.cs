@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 using Xamarin.Forms.Xaml;
 
 namespace project.Views
@@ -14,7 +15,14 @@ namespace project.Views
     {
         public ListToDoView()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch (Exception ex)
+            {
+                Log.Warning("ERROR", ex.Message);
+            }
         }
     }
 }

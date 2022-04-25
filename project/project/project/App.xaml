@@ -1,9 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:triggers="clr-namespace:project.Views.Triggers"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-			 x:Class="project.App"
-			 xmlns:views="clr-namespace:project.Views"
-			 xmlns:viewsModels="clr-namespace:project.ViewModels">
+			 x:Class="project.App">
 	
 	<Application.Resources>
         <ResourceDictionary>
@@ -33,6 +32,10 @@
             <Style x:Key="label-normal-text-style" TargetType="Label">
                 <Setter Property="FontSize" Value="26"></Setter>
             </Style>
+            <Style x:Key="label-date-style" TargetType="Label" BasedOn="{StaticResource label-base-style}">
+                <Setter Property="HorizontalTextAlignment" Value="Center"></Setter>
+                <Setter Property="MaxLines" Value="1"></Setter>
+            </Style>
 
             <Style x:Key="box-view-base-style" TargetType="BoxView">
                 <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource color-line-light}, Dark={StaticResource color-line-dark}}"></Setter>
@@ -58,7 +61,19 @@
                 <Setter Property="BorderWidth" Value="3"></Setter>
                 <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource color-conteiner-body-light}, Dark={StaticResource color-conteiner-body-dark}}"></Setter>
             </Style>
-            
+            <Style x:Key="button-action-style" TargetType="Button" BasedOn="{StaticResource button-base-style}">
+                <Style.Triggers>
+                    <EventTrigger Event="Clicked">
+                        <triggers:WaitTriggerButton></triggers:WaitTriggerButton>
+                    </EventTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="button-warrning-action-style" TargetType="Button" BasedOn="{StaticResource button-action-style}">
+                <Setter Property="TextColor" Value="{AppThemeBinding Light=Black, Dark=Yellow}"></Setter>
+                <Setter Property="BorderColor" Value="{AppThemeBinding Light=YellowGreen, Dark=Yellow}"></Setter>
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource color-conteiner-body-light}, Dark={StaticResource color-conteiner-body-dark}}"></Setter>
+            </Style>
+
             <Style x:Key="frame-body-todo-style" TargetType="Frame">
                 <Setter Property="CornerRadius" Value="24"></Setter>
                 <Setter Property="BackgroundColor" Value="Transparent"></Setter>

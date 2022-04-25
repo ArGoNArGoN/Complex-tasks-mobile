@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="project.Views.CommetsBoard">
+    
+    <ContentView.Content>
+        <Label Style="{StaticResource label-base-style}" HorizontalOptions="CenterAndExpand" Text="Пусто, будет в новой версии!"></Label>
+    </ContentView.Content>
+</ContentView>

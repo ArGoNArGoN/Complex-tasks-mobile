@@ -7,19 +7,20 @@ using Xamarin.Forms.Internals;
 
 namespace project.Services.Entitys
 {
-    internal class SubToDoDataBaseContext
-		: BaseDataBaseContext
+    public class SubToDoDataBaseContext
+		: BaseDataBaseContext, ICRUD<SubToDoEntity>
 	{
 		public SubToDoDataBaseContext(SQLiteConnection connection) 
 			: base(connection)
 		{
 			CheckTable();
 		}
+
 		private void CheckTable()
         {
             try
 			{
-				// connection.DropTable<SubToDoEntity>();
+				/// connection.DropTable<SubToDoEntity>();
 				connection.Table<SubToDoEntity>().ToList();
 			}
             catch (Exception ex)
@@ -34,10 +35,10 @@ namespace project.Services.Entitys
 					Log.Warning("INFO", "Таблица \"SubToDo\" Была создана.");
 					Log.Warning("INFO", "Заполнение таблицы \"SubToDo\"..");
 
-					Create(new SubToDoEntity() { ToDoIdentity = 1, Status = 0, Title = "Create" });
-					Create(new SubToDoEntity() { ToDoIdentity = 1, Status = 0, Title = "Update" });
-					Create(new SubToDoEntity() { ToDoIdentity = 1, Status = 0, Title = "Delete" });
-					Create(new SubToDoEntity() { ToDoIdentity = 1, Status = 1, Title = "Select" });
+					Create(new SubToDoEntity() { ToDoIdentity = 1, Status = "PendingState", Title = "Create" });
+					Create(new SubToDoEntity() { ToDoIdentity = 1, Status = "PendingState", Title = "Update" });
+					Create(new SubToDoEntity() { ToDoIdentity = 1, Status = "PendingState", Title = "Delete" });
+					Create(new SubToDoEntity() { ToDoIdentity = 1, Status = "CompletedState", Title = "Select" });
 				}
 				catch (Exception e)
 				{
@@ -46,6 +47,7 @@ namespace project.Services.Entitys
 				}
 			}
 		}
+
 		public void Create(SubToDoEntity entity)
 		{
 			if (entity is null)
@@ -67,11 +69,12 @@ namespace project.Services.Entitys
 
 			connection.Delete<ToDoEntity>(entity);
 		}
-		public ToDoEntity Select(Int32 identity)
+		public SubToDoEntity Read(Int32 identity)
 		{
-			return connection.Get<ToDoEntity>(identity);
+			return connection.Get<SubToDoEntity>(identity);
 		}
-		public IEnumerable<SubToDoEntity> Select()
+
+		public IEnumerable<SubToDoEntity> Read()
 		{
 			return connection.Table<SubToDoEntity>();
 		}
