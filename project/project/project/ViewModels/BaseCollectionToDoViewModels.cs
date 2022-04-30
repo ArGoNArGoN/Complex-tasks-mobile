@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+
 using Xamarin.Forms;
 
 namespace project.ViewModels
@@ -11,24 +12,24 @@ namespace project.ViewModels
     public abstract class BaseCollectionToDoViewModels
         : BaseViewModel
     {
-        private Boolean isRefrash = false;
+        private Boolean isRefresh = false;
 
-        public ICommand RefrashCommand { get; }
+        public ICommand RefreshCommand { get; }
 
         protected BaseCollectionToDoViewModels()
         {
             InitializeCollectionViewModel();
-            this.RefrashCommand = new Command((ob) => OnRefrash());
+            this.RefreshCommand = new Command((ob) => OnRefrash());
         }
 
         public virtual ObservableCollection<BaseViewModel> CollectionViewModels { get; } = new ObservableCollection<BaseViewModel>();
-        public virtual Boolean IsRefrash
+        public virtual Boolean IsRefresh
         {
-            get => isRefrash;
+            get => isRefresh;
             protected set
             {
-                isRefrash = value;
-                OnPropertyChanged(nameof(IsRefrash));
+                isRefresh = value;
+                OnPropertyChanged(nameof(IsRefresh));
             }
         }
 

@@ -18,7 +18,7 @@ namespace project.Services.ToDoService.StateService
         {
             var collection = service.Read();
 
-            var activeToDos = collection.Where(x => x.State == "Выполненная");
+            var activeToDos = collection.Where(x => x.State == "Завершенная");
 
             return this.CastEntityIntoModel(activeToDos);
         }

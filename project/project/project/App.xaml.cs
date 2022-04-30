@@ -38,10 +38,10 @@ namespace project
         {
 			/// регистрация основных view
 			Routing.RegisterRoute(nameof(Views.ListToDoView).ToLower(), typeof(Views.ListToDoView)); /// список задач
-			Routing.RegisterRoute(nameof(Views.ListEventsView).ToLower(), typeof(Views.ListEventsView)); /// список событий
+			Routing.RegisterRoute(nameof(Views.CollectionCompletedToDoView).ToLower(), typeof(Views.CollectionCompletedToDoView)); /// список событий
 
 			/// регистрация дополнительных view
-			Routing.RegisterRoute($"{nameof(Views.ListToDoView)}/{nameof(Views.ToDoView)}", typeof(Views.ToDoView)); /// список задач - задача
+			Routing.RegisterRoute($"{nameof(Views.ToDoView)}", typeof(Views.ToDoView)); /// список задач - задача
 		}
 
 		/// <summary>

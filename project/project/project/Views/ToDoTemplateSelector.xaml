@@ -27,7 +27,7 @@
                         </Style>
                     </StackLayout.Resources>
 
-                    <Label BindingContext="{Binding GetState}" Text="{Binding Value}"></Label>
+                    <Label BindingContext="{Binding GetState}" Text="{Binding Value, StringFormat='{0}'}"></Label>
                 </StackLayout>
             </Frame>
             <Frame Padding="16,0,16,18">

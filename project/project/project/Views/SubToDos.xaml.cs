@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace project.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ListEventsView : ContentPage
+    public partial class SubToDos : ContentView
     {
-        public ListEventsView()
+        public SubToDos()
         {
             InitializeComponent();
         }

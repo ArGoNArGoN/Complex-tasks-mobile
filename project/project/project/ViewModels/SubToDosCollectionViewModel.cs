@@ -11,9 +11,9 @@ namespace project.ViewModels
     {
         public ObservableCollection<BaseSubToDoViewModel> CollectionViewModels { get; }
 
-        public SubToDosCollectionViewModel(ObservableCollection<SubModel> collection)
+        public SubToDosCollectionViewModel(ObservableCollection<BaseSubToDoViewModel> collection)
         {
-            CollectionViewModels = new ObservableCollection<BaseSubToDoViewModel>(collection.Select(x => new BaseSubToDoViewModel(x)));
+            CollectionViewModels = collection;
         }
     }
 }

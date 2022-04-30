@@ -1,4 +1,5 @@
-﻿using System;
+﻿using project.Services.ToDoService.StateService.ModelService;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,12 +8,13 @@ namespace project.Models.ToDo
 	public class ToDoSubsModel
 		: BaseToDoModel
 	{
-		public ToDoSubsModel(IStateToDo state) 
-			: this(state, new List<SubModel>()) { }
-		public ToDoSubsModel(IStateToDo state, IEnumerable<SubModel> subToDos)
+		private readonly ISaveToDoModel<ToDoSubsModel> _service;
+
+		public ToDoSubsModel(IStateToDo state, IEnumerable<SubModel> subToDos, ISaveToDoModel<ToDoSubsModel> service)
 			: base(state)
 		{
 			SubToDos = subToDos ?? new List<SubModel>();
+			_service = service;
 		}
 
 		/// <summary>
@@ -25,8 +27,16 @@ namespace project.Models.ToDo
 		public Boolean SubToDosIsEmpty => SubToDos.Count() == 0;
 
 		public override String Commit()
-			=> State.Commit(this, (state) => State = state);
+			=> State.Commit(this, (state) =>
+			{
+				State = state;
+				_service.Save(this);
+			});
 		public override String RollBack()
-			=> State.RollBack(this, (state) => State = state);
+			=> State.RollBack(this, (state) =>
+			{
+				State = state;
+				_service.Save(this);
+			});
 	}
 }

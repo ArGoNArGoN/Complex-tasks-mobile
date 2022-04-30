@@ -16,18 +16,18 @@ namespace project.ViewModels
 	{
 		#region Сервисы и необходимые данные
 		private Int32 identity;
-		private Boolean isRefrash;
+		private Boolean isRefresh;
 		private IGetToDoViewModel _serviceToDo = ToDosViewModelService.GetService();
 		#endregion
 
 		#region VM по ToDo
 		private BaseToDoViewModel toDoViewModel;
-		private ColectionCommetsViewModel colectionCommetsViewModel;
-		private ColectionEventsViewModel colectionEventsViewModel;
+		private CollectionCommetsViewModel colectionCommetsViewModel;
+		private CollectionEventsViewModel colectionEventsViewModel;
 
         public BaseToDoViewModel ToDoViewModel { get => toDoViewModel; private set { toDoViewModel = value; OnPropertyChanged(nameof(ToDoViewModel)); } }
-		public ColectionCommetsViewModel ColectionCommetsViewModel { get => colectionCommetsViewModel; private set { colectionCommetsViewModel = value; OnPropertyChanged(nameof(ColectionCommetsViewModel)); } }
-		public ColectionEventsViewModel ColectionEventsViewModel { get => colectionEventsViewModel; private set { colectionEventsViewModel = value; OnPropertyChanged(nameof(ColectionEventsViewModel)); } }
+		public CollectionCommetsViewModel ColectionCommetsViewModel { get => colectionCommetsViewModel; private set { colectionCommetsViewModel = value; OnPropertyChanged(nameof(ColectionCommetsViewModel)); } }
+		public CollectionEventsViewModel ColectionEventsViewModel { get => colectionEventsViewModel; private set { colectionEventsViewModel = value; OnPropertyChanged(nameof(ColectionEventsViewModel)); } }
 		#endregion
 
 		public ToDoViewViewModel() { }
@@ -36,30 +36,34 @@ namespace project.ViewModels
 
 		// private Boolean slipRefrash { get; set; }
 
-		public Boolean IsRefrash
+		public Boolean IsRefresh
 		{
-			get => isRefrash;
+			get => isRefresh;
 			set 
 			{ 
-				if (isRefrash != value)
+				if (isRefresh != value)
                 {
-					isRefrash = value;
-					OnPropertyChanged(nameof(IsRefrash));
+					isRefresh = value;
+					OnPropertyChanged(nameof(IsRefresh));
                 }
 			}
 		}
 
 		public ICommand RefrashCommand { get; private set; }
-		public ICommand OnRefrashCommand { get => new Command(() => IsRefrash = true); }
+		public ICommand OnRefrashCommand { get => new Command(() => IsRefresh = true); }
 		
-		public ICommand BackCommand => new Command(async () => await Shell.Current.GoToAsync("..?ParameterIsRefrash=true"));
+		public ICommand BackCommand => new Command(async () => await Shell.Current.GoToAsync("..?ParameterIsRefresh=true"));
 
-		private void OnSetToDoModel(String identiy)
+		private async void OnSetToDoModel(String identiy)
 		{
 			Int32.TryParse(identiy, out identity);
 
 			if (!(identity > 0))
-				throw new ArgumentException("identity < 1", nameof(identity));
+            {
+				Log.Warning("ERROR", "identity < 1, ToDoViewViewModel");
+				await Shell.Current.GoToAsync("..");
+				return;
+            }
 
 			TitlePage = identity.ToString();
 
@@ -93,7 +97,7 @@ namespace project.ViewModels
 			}
 			finally
 			{
-				IsRefrash = false;
+				IsRefresh = false;
 			}
 		}
 		

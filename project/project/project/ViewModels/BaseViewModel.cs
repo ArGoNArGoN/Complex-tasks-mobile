@@ -11,8 +11,6 @@ namespace project.ViewModels
     {
         protected String titlePage;
 
-        public virtual String ParameterIsRefrash { get; set; }
-
         /// <summary>
         /// Название страницы
         /// </summary>

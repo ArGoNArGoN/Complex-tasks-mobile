@@ -2,6 +2,7 @@
 using project.Models.ToDo;
 
 using System;
+
 using Xamarin.Forms;
 using System.Windows.Input;
 
@@ -10,12 +11,13 @@ namespace project.ViewModels
 	public abstract class BaseToDoViewModel
 		: BaseViewModel
 	{
-		private Boolean isRefrash;
+		private Boolean isRefresh;
 		private String stateMessage;
+
 		protected BaseToDoModel model { get; private set; }
 
 		public event Action Refrash;
-		
+
 		public BaseToDoViewModel(BaseToDoModel model)
 		{
 			this.model = model ?? throw new ArgumentNullException(nameof(model));
@@ -24,25 +26,25 @@ namespace project.ViewModels
 			{
 				OnCommit();
 
-				IsRefrash = true;
+				IsRefresh = true;
 
 				OnPropertyChanged(nameof(GetState));
 				OnPropertyChanged(nameof(model.State.RollBackName));
 				OnPropertyChanged(nameof(model.State.CommitName));
 
-				IsRefrash = false;
+				IsRefresh = false;
 			});
 			RolbackCommnd = new Command(() =>
 			{
 				OnRolback();
 
-				IsRefrash = true;
+				IsRefresh = true;
 
 				OnPropertyChanged(nameof(GetState));
 				OnPropertyChanged(nameof(model.State.RollBackName));
 				OnPropertyChanged(nameof(model.State.CommitName));
 
-				IsRefrash = false;
+				IsRefresh = false;
 			});
 		}
 
@@ -53,29 +55,29 @@ namespace project.ViewModels
 		public String Title { get => model.Title ?? ""; }
 		public String Description { get => model.Description ?? ""; }
 		public DateTime EndDate { get => model.EndDate; }
-		public String Creator { get => model.Creator ?? ""; }
+		public string Creator { get => model.Creator ?? ""; }
 		public String Executor { get => model.Executor ?? ""; }
 		public TimeSpan GetTimeSpan { get => model.EndDate - DateTime.Now; }
 
 		public String CommitName { get => model.State.CommitName; }
 		public String RollBackName { get => model.State.RollBackName; }
-		public Boolean IsRefrash 
+		public Boolean IsRefresh
 		{
-			get => isRefrash; 
+			get => isRefresh;
 			set
 			{
-				if (isRefrash != value)
+				if (isRefresh != value)
 				{
-					isRefrash = value;
-					OnPropertyChanged(nameof(IsRefrash));
+					isRefresh = value;
+					OnPropertyChanged(nameof(IsRefresh));
 				}
 			}
 		}
 
-		public virtual String StateMessage 
+		public virtual String StateMessage
 		{
 			get => stateMessage;
-			set 
+			set
 			{
 				stateMessage = value;
 				OnPropertyChanged(nameof(StateMessage));
@@ -87,14 +89,7 @@ namespace project.ViewModels
 
 		public ICommand CommitCommnd { get; private set; }
 		public ICommand RolbackCommnd { get; private set; }
-		public virtual ICommand OnTapped
-		{
-			get => new Command(async (ob) =>
-			{
-				await Shell.Current.GoToAsync($"{nameof(Views.ListToDoView)}/{nameof(Views.ToDoView)}?Identity={((BaseToDoViewModel)ob).Identity}",
-				true);
-			});
-		}
+
 
 		protected void RefrashInvoke()
 		{

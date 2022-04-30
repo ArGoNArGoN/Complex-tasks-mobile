@@ -15,132 +15,148 @@
                 <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource color-conteiner-body-light}, Dark={StaticResource color-conteiner-body-dark}}"></Setter>
             </Style>
             <converts:TimeSpanToLocalDateConverter x:Key="convert"></converts:TimeSpanToLocalDateConverter>
-            <Style x:Key="show-more" TargetType="Frame">
-                <Setter Property="BorderColor" Value="Gray"></Setter>
-                <Setter Property="Padding" Value="10"></Setter>
-                <Setter Property="VerticalOptions" Value="CenterAndExpand"></Setter>
-                <Setter Property="CornerRadius" Value="4"></Setter>
-            </Style>
         </ResourceDictionary>
     </ContentView.Resources>
 
     <ContentView.Content>
-        <Frame Style="{StaticResource frame-base-style}" BorderColor="Transparent" IsEnabled="True">
-            <Frame.Triggers>
-                <DataTrigger Binding="{Binding IsRefrash}" Value="true" TargetType="Frame">
-                    <Setter Property="Opacity" Value="0.5"></Setter>
-                    <Setter Property="IsEnabled" Value="False"></Setter>
-                </DataTrigger>
-            </Frame.Triggers>
-            
-            <StackLayout Spacing="0">
-                <StackLayout.Resources>
-                    <Style TargetType="Label" BasedOn="{StaticResource label-normal-text-style}"></Style>
-                </StackLayout.Resources>
+        <!-- @bug SizeChanged эта штука фиксит баг -->
+        <Grid VerticalOptions="FillAndExpand" SizeChanged="SizeChanged">
+            <Frame Style="{StaticResource frame-base-style}" BorderColor="Transparent" IsEnabled="True">
+                <Frame.Triggers>
+                    <DataTrigger Binding="{Binding IsRefresh}" Value="true" TargetType="Frame">
+                        <Setter Property="Opacity" Value="0.5"></Setter>
+                        <Setter Property="IsEnabled" Value="False"></Setter>
+                    </DataTrigger>
+                </Frame.Triggers>
 
-                <Frame>
-                    <!-- стандартная информация -->
-                    <StackLayout Orientation="Vertical">
-                        <Frame>
-                            <StackLayout>
-                                <StackLayout Orientation="Horizontal">
-                                    <Label Text="Детали:" FontAttributes="Bold" HorizontalOptions="StartAndExpand"></Label>
-                                    <Frame Style="{StaticResource show-more}"></Frame>
-                                </StackLayout>
+                <StackLayout Spacing="0">
+                    <StackLayout.Resources>
+                        <Style TargetType="Label" BasedOn="{StaticResource label-normal-text-style}"></Style>
+                    </StackLayout.Resources>
 
-                                <StackLayout Spacing="0">
+                    <Frame>
+                        <!-- стандартная информация -->
+                        <StackLayout Orientation="Vertical">
+                            <Frame>
+                                <StackLayout>
                                     <StackLayout Orientation="Horizontal">
-                                        <Label>Тип:</Label>
-                                        <Label FontAttributes="Bold">
-                                            <Label.Text>
-                                                <MultiBinding StringFormat="{}{0}: {1} шт.">
-                                                    <Binding Path="Title"></Binding>
-                                                    <Binding Path="Count"></Binding>
-                                                </MultiBinding>
-                                            </Label.Text>
-                                        </Label>
-                                    </StackLayout>
-                                    <StackLayout Orientation="Horizontal">
-                                        <Label>Оставшееся время:</Label>
-                                        <Label FontAttributes="Bold" Text="{Binding GetTimeSpan, StringFormat='{0}', Converter={StaticResource convert}}"></Label>
+                                        <Label Text="Детали:" FontAttributes="Bold" HorizontalOptions="StartAndExpand"></Label>
+                                        <Frame Style="{StaticResource show-more-less}">
+                                            <Grid>
+                                                <RadioButton Style="{StaticResource show-less-button}"></RadioButton>
+                                                <RadioButton Style="{StaticResource show-more-button}" x:Name="showMoreDetail"></RadioButton>
+                                            </Grid>
+                                        </Frame>
                                     </StackLayout>
 
-                                    <StackLayout Orientation="Horizontal" Margin="0,6,0,0">
-                                        <Label>Создатель:</Label>
-                                        <Label FontAttributes="Bold" Text="{Binding Creator, StringFormat='{0}'}"></Label>
-                                    </StackLayout>
-                                    <StackLayout Orientation="Horizontal">
-                                        <Label>Исполнитель:</Label>
-                                        <Label FontAttributes="Bold" Text="{Binding Executor, StringFormat='{0}'}"></Label>
-                                    </StackLayout>
-                                </StackLayout>
-                            </StackLayout>
-                        </Frame>
+                                    <StackLayout Spacing="0">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label>Тип:</Label>
+                                            <Label FontAttributes="Bold">
+                                                <Label.Text>
+                                                    <MultiBinding StringFormat="{}{0}: {1} шт.">
+                                                        <Binding Path="Title"></Binding>
+                                                        <Binding Path="Count"></Binding>
+                                                    </MultiBinding>
+                                                </Label.Text>
+                                            </Label>
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label>Оставшееся время:</Label>
+                                            <Label FontAttributes="Bold" Text="{Binding GetTimeSpan, StringFormat='{0}', Converter={StaticResource convert}}"></Label>
+                                        </StackLayout>
 
-                        <BoxView HorizontalOptions="CenterAndExpand" Style="{StaticResource box-view-end-style}"></BoxView>
+                                        <StackLayout Orientation="Horizontal" Margin="0,6,0,0">
+                                            <Label>Создатель:</Label>
+                                            <Label FontAttributes="Bold" Text="{Binding Creator, StringFormat='{0}'}"></Label>
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label>Исполнитель:</Label>
+                                            <Label FontAttributes="Bold" Text="{Binding Executor, StringFormat='{0}'}"></Label>
+                                        </StackLayout>
 
-                        <Frame>
-                            <StackLayout Spacing="0">
-                                <StackLayout Orientation="Horizontal">
-                                    <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
-                                        <Label Text="Описание:" FontAttributes="Bold"></Label>
-                                        <Label FontAttributes="Italic" Text="отсутствует" IsVisible="false">
-                                            <Label.Triggers>
-                                                <DataTrigger TargetType="Label" Binding="{Binding Description}" Value="">
-                                                    <Setter Property="IsVisible" Value="true"></Setter>
-                                                </DataTrigger>
-                                            </Label.Triggers>
-                                        </Label>
-                                    </StackLayout>
-                                    <Frame Style="{StaticResource show-more}" IsVisible="true">
-                                        <Frame.Triggers>
-                                            <DataTrigger TargetType="Frame" Binding="{Binding Description}" Value="">
+                                        <StackLayout.Triggers>
+                                            <DataTrigger TargetType="StackLayout" Binding="{Binding Source={x:Reference Name=showMoreDetail}, Path=IsChecked}" Value="false">
                                                 <Setter Property="IsVisible" Value="false"></Setter>
                                             </DataTrigger>
-                                        </Frame.Triggers>
-                                    </Frame>
+                                        </StackLayout.Triggers>
+                                    </StackLayout>
                                 </StackLayout>
-                                <Label Text="{Binding Description}" IsVisible="true">
-                                    <Label.Triggers>
-                                        <DataTrigger TargetType="Label" Binding="{Binding Description}" Value="">
-                                            <Setter Property="IsVisible" Value="false"></Setter>
-                                        </DataTrigger>
-                                    </Label.Triggers>
-                                </Label>
-                            </StackLayout>
-                        </Frame>
-                    </StackLayout>
-                </Frame>
+                            </Frame>
 
-                <Frame Margin="0,20,0,10">
-                    <StackLayout Orientation="Horizontal">
-                        <Button Style="{StaticResource button-warrning-action-style}"
+                            <BoxView HorizontalOptions="CenterAndExpand" Style="{StaticResource box-view-end-style}"></BoxView>
+
+                            <Frame>
+                                <StackLayout Spacing="0">
+                                    <StackLayout Orientation="Horizontal">
+                                        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand">
+                                            <Label Text="Описание:" FontAttributes="Bold"></Label>
+                                            <Label FontAttributes="Italic" VerticalOptions="CenterAndExpand" VerticalTextAlignment="Center" Text="отсутствует" IsVisible="false">
+                                                <Label.Triggers>
+                                                    <DataTrigger TargetType="Label" Binding="{Binding Description}" Value="">
+                                                        <Setter Property="IsVisible" Value="true"></Setter>
+                                                    </DataTrigger>
+                                                </Label.Triggers>
+                                            </Label>
+                                        </StackLayout>
+                                        <Frame Style="{StaticResource show-more-less}" IsVisible="true">
+                                            <Frame.Triggers>
+                                                <DataTrigger TargetType="Frame" Binding="{Binding Description}" Value="">
+                                                    <Setter Property="IsVisible" Value="false"></Setter>
+                                                </DataTrigger>
+                                            </Frame.Triggers>
+
+                                            <Grid>
+                                                <RadioButton Style="{StaticResource show-less-button}"></RadioButton>
+                                                <RadioButton Style="{StaticResource show-more-button}" x:Name="showMoreDescription"></RadioButton>
+                                            </Grid>
+                                        </Frame>
+                                    </StackLayout>
+                                    <Label Text="{Binding Description}" IsVisible="true">
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label" Binding="{Binding Description}" Value="">
+                                                <Setter Property="IsVisible" Value="false"></Setter>
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference Name=showMoreDescription}, Path=IsChecked}" Value="false">
+                                                <Setter Property="IsVisible" Value="false"></Setter>
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                </StackLayout>
+                            </Frame>
+                        </StackLayout>
+                    </Frame>
+
+                    <Frame Margin="0,20,0,10">
+                        <StackLayout Orientation="Horizontal">
+                            <Button Style="{StaticResource button-warrning-action-style}"
                                 HorizontalOptions="CenterAndExpand" 
                                 IsVisible="True"
                                 Text="{Binding RollBackName}" 
                                 Command="{Binding RolbackCommnd}">
 
-                            <Button.Triggers>
-                                <DataTrigger Binding="{Binding RollBackName}" Value="" TargetType="Button">
-                                    <Setter Property="IsVisible" Value="False"></Setter>
-                                </DataTrigger>
-                            </Button.Triggers>
-                        </Button>
-                        <Button Style="{StaticResource button-action-style}"
+                                <Button.Triggers>
+                                    <DataTrigger Binding="{Binding RollBackName}" Value="" TargetType="Button">
+                                        <Setter Property="IsVisible" Value="False"></Setter>
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
+                            <Button Style="{StaticResource button-action-style}"
                                 HorizontalOptions="CenterAndExpand" 
                                 IsVisible="True"
                                 Text="{Binding CommitName}"
                                 Command="{Binding CommitCommnd}">
-                            
-                            <Button.Triggers>
-                                <DataTrigger Binding="{Binding CommitName}" Value="" TargetType="Button">
-                                    <Setter Property="IsVisible" Value="False"></Setter>
-                                </DataTrigger>
-                            </Button.Triggers>
-                        </Button>
-                    </StackLayout>
-                </Frame>
-            </StackLayout>
-        </Frame>
+
+                                <Button.Triggers>
+                                    <DataTrigger Binding="{Binding CommitName}" Value="" TargetType="Button">
+                                        <Setter Property="IsVisible" Value="False"></Setter>
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+            </Frame>
+        </Grid>
     </ContentView.Content>
 </ContentView>

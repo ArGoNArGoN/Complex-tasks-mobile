@@ -6,8 +6,8 @@
 	
 	<Application.Resources>
         <ResourceDictionary>
-            <Color x:Key="color-totdo-box-border-light">Black</Color>
-            <Color x:Key="color-totdo-box-border-dark">Gray</Color>
+            <Color x:Key="color-totdo-box-border-light">#0099cc</Color>
+            <Color x:Key="color-totdo-box-border-dark">#0099cc</Color>
             
             <Color x:Key="color-conteiner-body-light">White</Color>
             <Color x:Key="color-conteiner-body-dark">#3E2C41</Color>
@@ -62,6 +62,8 @@
                 <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource color-conteiner-body-light}, Dark={StaticResource color-conteiner-body-dark}}"></Setter>
             </Style>
             <Style x:Key="button-action-style" TargetType="Button" BasedOn="{StaticResource button-base-style}">
+                <Setter Property="BorderColor" Value="{AppThemeBinding Light=#0099cc, Dark=WhiteSmoke}"></Setter>
+
                 <Style.Triggers>
                     <EventTrigger Event="Clicked">
                         <triggers:WaitTriggerButton></triggers:WaitTriggerButton>
@@ -105,6 +107,53 @@
                 <Setter Property="CornerRadius" Value="1"></Setter>
                 <Setter Property="Grid.Column" Value="1"></Setter>
                 <Setter Property="VerticalOptions" Value="Center"></Setter>
+            </Style>
+
+            <Style x:Key="image-more-less-style" TargetType="Image">
+                <Setter Property="WidthRequest" Value="18"></Setter>
+                <Setter Property="HeightRequest" Value="18"></Setter>
+            </Style>
+
+            <Style TargetType="RadioButton" x:Key="show-less-button">
+                <Setter Property="IsChecked" Value="False"></Setter>
+                <Setter Property="IsVisible" Value="True"></Setter>
+                <Setter Property="ControlTemplate">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Image Source="show_less.png"></Image>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger TargetType="RadioButton" Property="IsChecked" Value="true">
+                        <Setter Property="IsVisible" Value="false"></Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="RadioButton" x:Key="show-more-button">
+                <Setter Property="IsChecked" Value="True"></Setter>
+                <Setter Property="IsVisible" Value="True"></Setter>
+                <Setter Property="ControlTemplate">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Image Source="show_more.png"></Image>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger TargetType="RadioButton" Property="IsChecked" Value="true">
+                        <Setter Property="IsVisible" Value="false"></Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="show-more-less" TargetType="Frame">
+                <Setter Property="BorderColor" Value="Gray"></Setter>
+                <Setter Property="WidthRequest" Value="24"></Setter>
+                <Setter Property="HeightRequest" Value="24"></Setter>
+                <Setter Property="Padding" Value="3"></Setter>
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"></Setter>
+                <Setter Property="CornerRadius" Value="4"></Setter>
             </Style>
 
             <Style TargetType="BoxView" BasedOn="{StaticResource box-view-base-style}"></Style>

@@ -32,7 +32,7 @@ namespace project.Models.ToDo.ToDoState
 			if (model is null)
 				throw new InvalidCastException(nameof(obj));
 
-			else if (!model.SubToDos.Any(x => x.State is BaseCompletedSubToDoState))
+			else if (model.SubToDos.Any(x => x.State is BasePendingSubToDoState))
 				return "Не все подзадачи выполнены!";
 
 			setState.Invoke(new CompletedToDoSubsState());

@@ -32,7 +32,7 @@ namespace project.Services.ToDoService.StateService
 
 			return entities.Where(x => x.TypeTask == "ToDoSubs")
 				.Select(x => new ToDoSubsModel(GetState(), service.Get()
-					.Where(y => y.ToDoIdentity == x.Identity))
+					.Where(y => y.ToDoIdentity == x.Identity), this)
 				{
 					Identity = x.Identity,
 					Title = x.Title,
@@ -57,6 +57,7 @@ namespace project.Services.ToDoService.StateService
 			entity.EndTime = model.EndDate;
 			entity.Executor = model.Executor;
 			entity.Creator = model.Creator;
+			entity.State = model.State.Value;
 
 			var collection = model.SubToDos;
 

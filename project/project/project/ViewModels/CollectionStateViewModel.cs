@@ -8,16 +8,18 @@ namespace project.ViewModels
 	/// <summary>
 	/// Отвечает за отображение Активных и Ожиающих задач
 	/// </summary>
-	[QueryProperty(nameof(ParameterIsRefrash), nameof(ParameterIsRefrash))]
+	[QueryProperty(nameof(ParameterIsRefresh), nameof(ParameterIsRefresh))]
 	public class CollectionStateViewModel
 		: BaseViewModel
 	{
         private Boolean isRefreshing;
+        private String parameterIsRefresh;
+        private Boolean isBusy;
 
-		/// <summary>
-		/// VM активных задач.
-		/// </summary>
-		public ActiveToDoCollectionViewModel ActiveToDoListViewModel { get; }
+        /// <summary>
+        /// VM активных задач.
+        /// </summary>
+        public ActiveToDoCollectionViewModel ActiveToDoListViewModel { get; }
 		/// <summary>
 		/// VM ожидающих задач.
 		/// </summary>
@@ -31,13 +33,12 @@ namespace project.ViewModels
 			ActiveToDoListViewModel = new ActiveToDoCollectionViewModel();
 			PendingToDoListViewModel = new PendingToDoCollectionViewModel();
 		}
-
-        public override String ParameterIsRefrash 
+		public virtual String ParameterIsRefresh 
 		{
-			get => base.ParameterIsRefrash;
+			get => parameterIsRefresh;
 			set
 			{
-				base.ParameterIsRefrash = value;
+				parameterIsRefresh = value;
 				if (Boolean.TryParse(value, out var result)) IsRefreshing = result;
 			}
 		}
@@ -52,18 +53,33 @@ namespace project.ViewModels
 			}
         }
 
-		public ICommand RefreshButtonCommand 
-		{ 
-			get => new Command(() => IsRefreshing = true);
-		}
+		public ICommand RefreshButtonCommand => new Command(() => IsRefreshing = true);
 		public ICommand RefreshCommand => new Command(() =>
 		{
 			IsRefreshing = true;
 
-			ActiveToDoListViewModel.RefrashCommand.Execute(this);
-			PendingToDoListViewModel.RefrashCommand.Execute(this);
+			ActiveToDoListViewModel.RefreshCommand.Execute(this);
+			PendingToDoListViewModel.RefreshCommand.Execute(this);
 
 			IsRefreshing = false;
 		});
-    }
+
+		public async void OnOpenToDo(BaseToDoViewModel viewModel)
+        {
+			if (!isBusy)
+			{
+				isBusy = true;
+				try
+				{
+					await Shell.Current.GoToAsync($"{nameof(Views.ToDoView)}?Identity={viewModel.Identity}", true);
+				}
+				finally
+				{
+					isBusy = false;
+				}
+			}
+		}
+
+		public virtual ICommand OnTapped => new Command<BaseToDoViewModel>(OnOpenToDo);
+	}
 }

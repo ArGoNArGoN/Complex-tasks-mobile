@@ -6,7 +6,7 @@ namespace project.Models.ToDo.ToDoState
     /// Описывает состояние выполненной подзадачи.
     /// </summary>
     public class CompletedSubState
-        : BaseCompletedToDoState, IState<SubModel>
+        : BaseCompletedSubToDoState, IState<SubModel>
     {
         public string Value => "CompletedState";
 

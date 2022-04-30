@@ -11,7 +11,6 @@
             <Color x:Key="color-conteiner-body-dark">#3E2C41</Color>
 
             <Style x:Key="MyBaseStyle" TargetType="Element">
-
                 <Setter Property="Shell.ForegroundColor" Value="{AppThemeBinding Light=Black, Dark=White}"/>
                 <Setter Property="Shell.TitleColor" Value="{AppThemeBinding Light=Black, Dark=White}"/>
                 <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
@@ -27,11 +26,11 @@
     </Shell.Resources>
     
     <TabBar>
-        <Tab Title="События">
-            <ShellContent ContentTemplate="{DataTemplate views:ListEventsView}"></ShellContent>
-        </Tab>
-        <Tab Title="Задачи">
+        <Tab Icon="pending_active_icon.png" Title="">
             <ShellContent ContentTemplate="{DataTemplate views:ListToDoView}"></ShellContent>
+        </Tab>
+        <Tab Icon="completed_icon.png" Title="Выполненные задачи">
+            <ShellContent ContentTemplate="{DataTemplate views:CollectionCompletedToDoView}"></ShellContent>
         </Tab>
     </TabBar>
 </Shell>

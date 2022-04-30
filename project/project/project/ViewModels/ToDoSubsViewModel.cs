@@ -11,13 +11,12 @@ namespace project.ViewModels
 		: BaseToDoViewModel
 	{
 		private ToDoSubsModel _model; 
-		private ObservableCollection<SubModel> CollectionSubToDos { get; }
+		private ObservableCollection<BaseSubToDoViewModel> CollectionSubToDos { get; }
 
 		public ToDoSubsViewModel(ToDoSubsModel model)
 			: base(model) 
 		{
-			CollectionSubToDos = new ObservableCollection<SubModel>(model.SubToDos);
-
+			CollectionSubToDos = new ObservableCollection<BaseSubToDoViewModel>(model.SubToDos.Select(x => new SubToDoViewModel(x)));
 			CollectionSubToDosViewModel = new SubToDosCollectionViewModel(CollectionSubToDos);
 			this._model = model;
 		}

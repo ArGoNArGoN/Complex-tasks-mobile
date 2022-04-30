@@ -16,5 +16,14 @@ namespace project.Views
         {
             InitializeComponent();
         }
+
+        /// @bug SizeChanged эта штука фиксит баг c прорисовкой элементов
+        private async void SizeChanged(object sender, System.EventArgs e)
+        {
+            await Task.Delay(100);
+
+            InvalidateMeasure();
+            ForceLayout();
+        }
     }
 }

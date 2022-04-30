@@ -20,7 +20,7 @@ namespace project.ViewModels
 
 		public async override void InitializeCollectionViewModel()
 		{
-			IsRefrash = true;
+			IsRefresh = true;
 
 			try
 			{
@@ -36,13 +36,14 @@ namespace project.ViewModels
 			}
 			finally
 			{
-				IsRefrash = false;
+				IsRefresh = false;
 			}
 		}
 
 		public async override void OnRefrash()
 		{
-			IsRefrash = true;
+			/// TODO: Проверить на дубликацю события
+			IsRefresh = true; /// почему здесь true? При установке дублируется событие
 
 			try
 			{
@@ -58,7 +59,7 @@ namespace project.ViewModels
 			}
 			finally
 			{
-				IsRefrash = false;
+				IsRefresh = false;
 			}
 		}
 	}

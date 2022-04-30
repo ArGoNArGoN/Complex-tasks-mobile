@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:views="clr-namespace:project.Views" xmlns:viewmodels="clr-namespace:project.ViewModels" x:DataType="viewmodels:CollectionCompletedToDosViewViewModel"
+             x:Class="project.Views.CollectionCompletedToDoView"
+             Title="Завершенные задачи: ">
+
+
+    <ContentPage.BindingContext>
+        <viewmodels:CollectionCompletedToDosViewViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding RefreshButtonCommand}" Text="Обновить"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+        <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}">
+            <ScrollView>
+                <views:ToDoItems BindingContext="{Binding CompletedToDosViewModel}"></views:ToDoItems>
+            </ScrollView>
+        </RefreshView>
+    </ContentPage.Content>
+</ContentPage>

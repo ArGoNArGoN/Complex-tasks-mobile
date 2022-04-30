@@ -1,6 +1,6 @@
 ﻿namespace project.ViewModels
 {
-    public class ColectionCommetsViewModel
+    public class CollectionEventsViewModel
     {
     }
 }

@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="project.Views.SubToDos">
+
+    <ContentView.Content>
+        <StackLayout BindableLayout.ItemsSource="{Binding CollectionViewModels}">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" BindingContext="{Binding .}">
+                        <CheckBox VerticalOptions="CenterAndExpand" x:Name="value" IsEnabled="False" IsChecked="{Binding IsChecked}" HorizontalOptions="Start"></CheckBox>
+                        <Label Text="{Binding Title}" VerticalOptions="CenterAndExpand" VerticalTextAlignment="Center" TextDecorations="Strikethrough" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Start">
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label" Binding="{Binding IsChecked}" Value="False">
+                                    <Setter Property="TextDecorations" Value="None"></Setter>
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+
+                        <!-- Это неправильно нужно переделать! -->
+                        <!-- В метод команды приходит старое значение IsChecked! -->
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OnTapped}" CommandParameter="{Binding Source={Reference value}, Path=IsChecked}"></TapGestureRecognizer>
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>
