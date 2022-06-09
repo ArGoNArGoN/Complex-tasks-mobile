@@ -2,19 +2,26 @@
 using project.Models.ToDo;
 using project.Services;
 using project.Services.Entitys;
+using project.Services.Entitys.APIService;
+using project.Services.Entitys.DBService;
+using project.Services.Entitys.ScopeService;
+using project.Services.ServiceDialog;
 using project.Services.ToDoService;
 using project.Services.ToDoService.StateService;
 using project.Services.ToDoService.StateService.ModelService;
+using project.Services.UserService;
 using project.ViewModels;
 using SQLite;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace project
 {
-    public partial class App 
+	public partial class App 
 		: Application
 	{
 		public App()
@@ -24,18 +31,19 @@ namespace project
 			this.RegisterDataStore();
 			this.RegisterRoute();
 
-			this.MainPage = new MainPage();
+			this.MainPage = new NavigationPage(new AuthorizationView());
 		}
 
 		private const string DATABASE_NAME = "todos.db";
 		public static readonly SQLiteConnection connection = new SQLiteConnection(Path.Combine(
 							Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), DATABASE_NAME));
-
-        public ICRUD<ToDoEntity> GetToDoCrudService { get; private set; }
-        public ICRUD<SubToDoEntity> GetSubToDoCrudService { get; private set; }
+		
+		public ICRUD<ToDoEntity> GetToDoCrudService { get; private set; }
+		public ICRUD<SubToDoEntity> GetSubToDoCrudService { get; private set; }
+		public ICRUD<UserEntity> UserDBCrudService { get; private set; }
 
 		private void RegisterRoute()
-        {
+		{
 			/// регистрация основных view
 			Routing.RegisterRoute(nameof(Views.ListToDoView).ToLower(), typeof(Views.ListToDoView)); /// список задач
 			Routing.RegisterRoute(nameof(Views.CollectionCompletedToDoView).ToLower(), typeof(Views.CollectionCompletedToDoView)); /// список событий
@@ -51,24 +59,37 @@ namespace project
 		{
 			/// !!!!! ПЕРЕД ТЕМ, КАК ИЗМЕНИТЬ !!!!!!
 			/// ВАЖЕН ПОРЯДОК
-			/// СМОТРИ ДОКИ В StarUML
+			/// СМОТРИ ДОКИ
 
 			/// объявляем datastore
-			GetToDoCrudService = new ToDoDataBaseContext(connection);
+			/// Заменить на прослойку
+			GetToDoCrudService = new ToDoScopeService(new ToDoDataBaseContext(connection), new ToDoEntityAPIContext(), new UserChangesDataBaseContext(connection));
 			GetSubToDoCrudService = new SubToDoDataBaseContext(connection);
 
+			/// регистрация сервиса для получения пользователя
+			UserDBCrudService = new UserDataBaseContext(connection);
+			DependencyService.RegisterSingleton(UserDBCrudService);
+			DependencyService.RegisterSingleton(new ServiceDialogCurrentIntent());
+			DependencyService.RegisterSingleton<IAuthorizationService>(new UserModelRepository(UserDBCrudService));
 
 			/// Рtгистрация сервисов для моделей.
-			RegisterSubToDoModelService();
 			RegisterToDoModelServices();
+			RegisterSubToDoModelService();
 			RegisterToDoSubsModelServices();
 
 			/// регистрация сервисов. 
 			RegisterToDosViewModelService();
 		}
 
-        private void RegisterToDoSubsModelServices()
+		private void RegisterToDoSubsModelServices()
 		{
+			/// Тут багулина, я не знаю, как ее фиксить иначе
+			/// Почему-то сервис может быть уже инициализирован
+			/// а вот почему, мы не знаем, спросить Нижегородову
+			/// Завести баг, если еще можно успеть
+			if (ToDoSubsModelService.IsInit)
+				return;
+
 			/// получаем объект CRUD сервиса
 			ICRUD<ToDoEntity> crudService = GetToDoCrudService;
 
@@ -84,8 +105,15 @@ namespace project
 			ToDoSubsModelService.InitializeService(collectionServices);
 		}
 
-        private void RegisterSubToDoModelService()
-        {
+		private void RegisterSubToDoModelService()
+		{
+			/// Тут багулина, я не знаю, как ее фиксить иначе
+			/// Почему-то сервис может быть уже инициализирован
+			/// а вот почему, мы не знаем, спросить Нижегородову
+			/// Завести баг, если еще можно успеть
+			if (SubToDoModelService.IsInit)
+				return;
+
 			ICRUD<SubToDoEntity> crudService = GetSubToDoCrudService;
 
 			var collectionServices = new List<IStateService<SubModel>>()
@@ -95,10 +123,17 @@ namespace project
 			};
 
 			SubToDoModelService.InitializeService(collectionServices);
-        }
+		}
 
-        private void RegisterToDosViewModelService()
-        {
+		private void RegisterToDosViewModelService()
+		{
+			/// Тут багулина, я не знаю, как ее фиксить иначе
+			/// Почему-то сервис может быть уже инициализирован
+			/// а вот почему, мы не знаем, спросить Нижегородову
+			/// Завести баг, если еще можно успеть
+			if (ToDosViewModelService.IsInit)
+				return;
+
 			var collectionViewModel = new List<IGetToDoViewModel>()
 			{
 				new ToDoViewModelRepository(),
@@ -108,11 +143,18 @@ namespace project
 			ToDosViewModelService.InitializeService(collectionViewModel);
 		}
 
-        /// <summary>
-        /// Инициализирует сервис с состояниями для ToDo
-        /// </summary>
-        private void RegisterToDoModelServices()
-        {
+		/// <summary>
+		/// Инициализирует сервис с состояниями для ToDo
+		/// </summary>
+		private void RegisterToDoModelServices()
+		{
+			/// Тут багулина, я не знаю, как ее фиксить иначе
+			/// Почему-то сервис может быть уже инициализирован
+			/// а вот почему, мы не знаем, спросить Нижегородову
+			/// Завести баг, если еще можно успеть
+			if (ToDoModelService.IsInit)
+				return;
+
 			/// получаем объект CRUD сервиса
 			ICRUD<ToDoEntity> crudService = GetToDoCrudService;
 
@@ -126,9 +168,9 @@ namespace project
 
 			/// инициализируем сервис ToDo
 			ToDoModelService.InitializeService(collectionServices);
-        }
+		}
 
-        protected override void OnStart()
+		protected override void OnStart()
 		{
 		}
 

@@ -1,11 +1,14 @@
-﻿using SQLite;
+﻿#define IS_NOT_DEBUG
+#define DROP_DATABASE
+
+using SQLite;
+
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+
 using Xamarin.Forms.Internals;
 
-namespace project.Services.Entitys
+namespace project.Services.Entitys.DBService
 {
     public class SubToDoDataBaseContext
 		: BaseDataBaseContext, ICRUD<SubToDoEntity>
@@ -20,7 +23,9 @@ namespace project.Services.Entitys
         {
             try
 			{
-				/// connection.DropTable<SubToDoEntity>();
+#if !IS_NOT_DEBUG || DROP_DATABASE
+				connection.DropTable<SubToDoEntity>();
+#endif
 				connection.Table<SubToDoEntity>().ToList();
 			}
             catch (Exception ex)
@@ -33,12 +38,6 @@ namespace project.Services.Entitys
 				{
 					connection.CreateTable<SubToDoEntity>();
 					Log.Warning("INFO", "Таблица \"SubToDo\" Была создана.");
-					Log.Warning("INFO", "Заполнение таблицы \"SubToDo\"..");
-
-					Create(new SubToDoEntity() { ToDoIdentity = 1, Status = "PendingState", Title = "Create" });
-					Create(new SubToDoEntity() { ToDoIdentity = 1, Status = "PendingState", Title = "Update" });
-					Create(new SubToDoEntity() { ToDoIdentity = 1, Status = "PendingState", Title = "Delete" });
-					Create(new SubToDoEntity() { ToDoIdentity = 1, Status = "CompletedState", Title = "Select" });
 				}
 				catch (Exception e)
 				{

@@ -15,6 +15,8 @@ namespace project.Models.ToDo
 		private DateTime endDate;
 		private String creator;
 		private String executor;
+        private String source;
+		private String sourceCreator;
 
 		/// <summary>
 		/// Состояние задачи
@@ -75,8 +77,22 @@ namespace project.Models.ToDo
 			get => executor;
 			set { executor = value; OnPropertyChanged(nameof(Executor)); }
 		}
+		public virtual String SourceCreator
+		{
+			get => sourceCreator ?? "not_loading.png";
+			set { sourceCreator = value; OnPropertyChanged(nameof(SourceCreator)); }
+		}
 
-		public abstract String Commit();
+		/// <summary>
+		/// For img
+		/// </summary>
+		public virtual String Source 
+		{
+			get => source ?? "not_loading.png";
+			set { source = value; OnPropertyChanged(nameof(Source)); }
+		}
+
+        public abstract String Commit();
 		public abstract String RollBack();
 	}
 }

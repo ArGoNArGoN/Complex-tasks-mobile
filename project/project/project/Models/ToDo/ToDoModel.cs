@@ -8,10 +8,10 @@ namespace project.Models.ToDo
 	{
 		private readonly ISaveToDoModel<ToDoModel> saveService;
 
-		public ToDoModel(IStateToDo state, ISaveToDoModel<ToDoModel> saveService)
+        public ToDoModel(IStateToDo state, ISaveToDoModel<ToDoModel> saveService)
 			: base(state)
 		{
-			this.saveService = saveService ?? throw new ArgumentNullException(nameof(saveService));
+			this.saveService = saveService; //?? throw new ArgumentNullException(nameof(saveService));
 		}
 
 		public override String Commit()

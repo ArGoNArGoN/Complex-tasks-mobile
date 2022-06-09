@@ -7,10 +7,10 @@ using System.Collections.Generic;
 
 namespace project.Services
 {
-    /// <summary>
-    /// Сервис для получения всех ToDoVM
-    /// </summary>
-    public sealed class ToDosViewModelService
+	/// <summary>
+	/// Сервис для получения всех ToDoVM
+	/// </summary>
+	public sealed class ToDosViewModelService
 		: IGetToDoViewModel
 	{
 		private static ToDosViewModelService _service;
@@ -34,11 +34,24 @@ namespace project.Services
 		public static void InitializeService(IEnumerable<IGetToDoViewModel> repositories)
 			=>_service = _service is null ? new ToDosViewModelService(repositories) : throw new InvalidOperationException("Сервис уже инициализирован!");
 
+		public static Boolean IsInit => !(_service is null);
+
 		/// <summary>
 		/// Возвращает список Всех зарегистрированных VM в программе
 		/// </summary>
 		/// <returns>Список всех VM</returns>
 		public IEnumerable<BaseToDoViewModel> Get()
 			=> Repositories.Select(x => x.Get()).Aggregate((x, y) => x.Concat(y));
+		 
+		public BaseToDoViewModel Get(int identity)
+		{
+			foreach (var item in Repositories)
+			{
+				var vm = item.Get(identity);
+				if (!(vm is null))
+					return vm;
+			}
+			return null;
+		}
 	}
 }

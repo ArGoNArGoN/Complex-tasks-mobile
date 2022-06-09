@@ -23,6 +23,16 @@ namespace project.Services.ToDoService.StateService
             return this.CastEntityIntoModel(activeToDos);
         }
 
+        public ToDoModel Get(int identity)
+        {
+            var model = service.Read(identity);
+            if (model.State == "Завершенная" && model.TypeTask == "ToDo")
+            {
+                return this.CastEntityIntoModel(model);
+            }
+            return null;
+        }
+
         protected override IStateToDo GetState()
             => new CompletedToDoState();
     }

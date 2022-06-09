@@ -23,6 +23,11 @@ namespace project.Services.ToDoService.StateService
             return this.CastEntityIntoModel(activeToDos);
         }
 
+        public SubModel Get(int identity)
+        {
+            return null;
+        }
+
         protected override IState<SubModel> GetState()
            => new CompletedSubState();
     }

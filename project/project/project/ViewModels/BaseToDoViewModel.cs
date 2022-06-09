@@ -58,6 +58,7 @@ namespace project.ViewModels
 		public string Creator { get => model.Creator ?? ""; }
 		public String Executor { get => model.Executor ?? ""; }
 		public TimeSpan GetTimeSpan { get => model.EndDate - DateTime.Now; }
+		public String Source { get => model.Source; }
 
 		public String CommitName { get => model.State.CommitName; }
 		public String RollBackName { get => model.State.RollBackName; }

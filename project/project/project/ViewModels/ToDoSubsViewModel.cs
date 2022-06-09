@@ -10,7 +10,7 @@ namespace project.ViewModels
     public sealed class ToDoSubsViewModel
 		: BaseToDoViewModel
 	{
-		private ToDoSubsModel _model; 
+		private ToDoSubsModel _model;
 		private ObservableCollection<BaseSubToDoViewModel> CollectionSubToDos { get; }
 
 		public ToDoSubsViewModel(ToDoSubsModel model)

@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using project.ViewModels;
 
 namespace project.Services.ToDoService.StateService.ModelService
 {
@@ -23,14 +24,29 @@ namespace project.Services.ToDoService.StateService.ModelService
 		/// <returns></returns>
 		public static ToDoModelService GetService()
 			=> _service ?? throw new InvalidOperationException("Сервис не был инициализирован!");
-		/// <summary>
-		/// Инициализация.
-		/// </summary>
-		/// <param name="repositories"></param>
-		public static void InitializeService(IEnumerable<IStateService<ToDoModel>> repositories)
+
+		public ToDoModel Get(int identity)
+        {
+            foreach (var item in Services)
+            {
+				var model = item.Get(identity);
+
+				if (!(model is null))
+					return model;
+			}
+			return null;
+        }
+
+        /// <summary>
+        /// Инициализация.
+        /// </summary>
+        /// <param name="repositories"></param>
+        public static void InitializeService(IEnumerable<IStateService<ToDoModel>> repositories)
 			=> _service = _service is null 
 			? new ToDoModelService(repositories)
 			: throw new InvalidOperationException("Сервис уже инициализирован!");
+
+		public static Boolean IsInit => !(_service is null);
 
 		/// <summary>
 		/// возвращает список всех зарегистрированных ToDoModel.
@@ -42,7 +58,7 @@ namespace project.Services.ToDoService.StateService.ModelService
 
         public void Save(ToDoModel model)
         {
-			
-        }
+
+		}
     }
 }

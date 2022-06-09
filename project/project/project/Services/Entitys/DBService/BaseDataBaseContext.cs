@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace project.Services.Entitys
+namespace project.Services.Entitys.DBService
 {
 	public class BaseDataBaseContext
 	{

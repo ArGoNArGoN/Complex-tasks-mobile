@@ -23,5 +23,12 @@ namespace project.Services.ToDoService
 		public IEnumerable<BaseToDoViewModel> Get()
 			=> service.Get()
 			.Select(x => new ToDoViewModel(x));
-    }
+		public BaseToDoViewModel Get(int identity)
+		{
+			var model = service.Get(identity);
+			if (!(model is null))
+				return new ToDoViewModel(model);
+			return null;
+		}
+	}
 }

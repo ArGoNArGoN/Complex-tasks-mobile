@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="project.AuthorizationView"
+             Title="Авторизация">
+
+    <ContentPage.Content>
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <StackLayout Grid.Column="1" Orientation="Vertical" Spacing="90" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+                <StackLayout BindingContext="{Binding UserModel}" Orientation="Vertical" Spacing="6"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <Entry Text="{Binding LogIn}" FontSize="Title" Style="{StaticResource entry-base-style}" Placeholder="Логин.."  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"></Entry>
+                    <Entry x:Name="Password" FontSize="Title" IsPassword="True" Placeholder="Пароль.."></Entry>
+                </StackLayout>
+
+                <Button Text="Вход" Command="{Binding AuthorizationCommand}" CommandParameter="{Binding Source={x:Reference Password}, Path=Text}"></Button>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

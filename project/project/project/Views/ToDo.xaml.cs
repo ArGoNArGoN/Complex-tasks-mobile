@@ -18,7 +18,7 @@ namespace project.Views
         }
 
         /// @bug SizeChanged эта штука фиксит баг c прорисовкой элементов
-        private async void SizeChanged(object sender, System.EventArgs e)
+        private new async void SizeChanged(object sender, System.EventArgs e)
         {
             await Task.Delay(100);
 

@@ -33,7 +33,10 @@
                             </Grid.ColumnDefinitions>
 
                             <StackLayout Grid.Column="0" Orientation="Horizontal">
-                                <BoxView HeightRequest="50" WidthRequest="50" CornerRadius="5" BackgroundColor="{AppThemeBinding Light=WhiteSmoke, Dark={StaticResource color-conteiner-body-dark}}"></BoxView>
+                                <Frame HeightRequest="50" WidthRequest="50" CornerRadius="6" Style="{StaticResource frame-base-style}">
+                                    <Image Source="{Binding Source}"></Image>
+                                </Frame>
+                                
                                 <Label Style="{StaticResource label-normal-text-style}" VerticalOptions="Center">
                                     <Label.Text>
                                         <MultiBinding StringFormat="{}{0}: {1} шт">

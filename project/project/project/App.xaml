@@ -156,7 +156,13 @@
                 <Setter Property="CornerRadius" Value="4"></Setter>
             </Style>
 
+
+            <Style x:Key="entry-base-style" TargetType="Entry">
+                <Setter Property="FontSize" Value="18"></Setter>
+            </Style>
+
             <Style TargetType="BoxView" BasedOn="{StaticResource box-view-base-style}"></Style>
+            <Style TargetType="Entry" BasedOn="{StaticResource entry-base-style}"></Style>
 
             <Style TargetType="Label" BasedOn="{StaticResource label-base-style}"></Style>
             <Style TargetType="Frame" BasedOn="{StaticResource frame-base-style}"></Style>

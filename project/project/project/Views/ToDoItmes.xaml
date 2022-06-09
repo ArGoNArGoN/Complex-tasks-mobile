@@ -11,21 +11,21 @@
             <DataTemplate x:Key="ToDoTemplate">
                 <views:ToDoItem Padding="0,0,0,6" BindingContext="{Binding .}">
                     <views:ToDoItem.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:BaseCollectionToDoViewModels}}, Path=OnTapped}" CommandParameter="{Binding .}"></TapGestureRecognizer>
+                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CollectionStateViewModel}}, Path=OnTapped}" CommandParameter="{Binding .}"></TapGestureRecognizer>
                     </views:ToDoItem.GestureRecognizers>
                 </views:ToDoItem>
             </DataTemplate>
             <DataTemplate x:Key="ToDoSubsTemplate">
                 <views:ToDoSubsItem Padding="0,0,0,6" BindingContext="{Binding .}">
                     <views:ToDoSubsItem.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:BaseCollectionToDoViewModels}}, Path=OnTapped}" CommandParameter="{Binding .}"></TapGestureRecognizer>
+                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CollectionStateViewModel}}, Path=OnTapped}" CommandParameter="{Binding .}"></TapGestureRecognizer>
                     </views:ToDoSubsItem.GestureRecognizers>
                 </views:ToDoSubsItem>
             </DataTemplate>
             <DataTemplate x:Key="BaseToDoTemplate">
                 <views:ToDoItem Padding="0,0,0,6" BindingContext="{Binding .}">
                     <views:ToDoItem.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:BaseCollectionToDoViewModels}}, Path=OnTapped}" CommandParameter="{Binding .}"></TapGestureRecognizer>
+                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CollectionStateViewModel}}, Path=OnTapped}" CommandParameter="{Binding .}"></TapGestureRecognizer>
                     </views:ToDoItem.GestureRecognizers>
                 </views:ToDoItem>
             </DataTemplate>

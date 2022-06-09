@@ -33,6 +33,8 @@ namespace project.Services.ToDoService.StateService.ModelService
 			? new SubToDoModelService(repositories)
 			: throw new InvalidOperationException("Сервис уже инициализирован!");
 
+		public static Boolean IsInit => !(_service is null);
+
 		/// <summary>
 		/// возвращает список всех зарегистрированных SubModel.
 		/// </summary>

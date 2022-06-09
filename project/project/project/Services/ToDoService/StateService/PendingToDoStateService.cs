@@ -21,9 +21,19 @@ namespace project.Services.ToDoService.StateService
 		{
 			var collection = service.Read();
 
-			var activeToDos = collection.Where(x => x.State == "Ожидающая");
+			var activeToDos = collection.Where(x => x.State == "Ожидающая").ToList();
+			var ds = activeToDos.Count();
 
 			return this.CastEntityIntoModel(activeToDos);
+		}
+		public ToDoModel Get(int identity)
+		{
+			var model = service.Read(identity);
+			if (model.State == "Ожидающая" && model.TypeTask == "ToDo")
+			{
+				return this.CastEntityIntoModel(model);
+			}
+			return null;
 		}
 	}
 }

@@ -3,7 +3,8 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        x:Class="project.MainPage"
        BackgroundColor="{AppThemeBinding Light=#F5F3F3, Dark=#261C2C}"
-       xmlns:views="clr-namespace:project.Views">
+       xmlns:views="clr-namespace:project.Views"
+       xmlns:auth="clr-namespace:project">
 
     <Shell.Resources>
         <ResourceDictionary>
@@ -24,12 +25,12 @@
             <Style TargetType="TabBar" BasedOn="{StaticResource MyBaseStyle}"></Style>
         </ResourceDictionary>
     </Shell.Resources>
-    
+
     <TabBar>
-        <Tab Icon="pending_active_icon.png" Title="">
+        <Tab Icon="pending_active_icon.png" Title="Выплняющиеся">
             <ShellContent ContentTemplate="{DataTemplate views:ListToDoView}"></ShellContent>
         </Tab>
-        <Tab Icon="completed_icon.png" Title="Выполненные задачи">
+        <Tab Icon="completed_icon.png" Title="Завершенные">
             <ShellContent ContentTemplate="{DataTemplate views:CollectionCompletedToDoView}"></ShellContent>
         </Tab>
     </TabBar>

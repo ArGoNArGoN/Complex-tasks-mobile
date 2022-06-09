@@ -27,6 +27,18 @@ namespace project.Services.ToDoService.StateService.ModelService
 		public static ToDoSubsModelService GetService()
 			=> _service ?? throw new InvalidOperationException("Сервис не был инициализирован!");
 
+        internal ToDoSubsModel Get(int identity)
+		{
+			foreach (var item in Services)
+			{
+				var model = item.Get(identity);
+
+				if (!(model is null))
+					return model;
+			}
+			return null;
+		}
+
 		/// <summary>
 		/// Инициализация.
 		/// </summary>
@@ -35,6 +47,8 @@ namespace project.Services.ToDoService.StateService.ModelService
 			=> _service = _service is null
 			? new ToDoSubsModelService(repositories)
 			: throw new InvalidOperationException("Сервис уже инициализирован!");
+
+		public static Boolean IsInit => !(_service is null);
 
 		/// <summary>
 		/// возвращает список всех зарегистрированных ToDoModel.

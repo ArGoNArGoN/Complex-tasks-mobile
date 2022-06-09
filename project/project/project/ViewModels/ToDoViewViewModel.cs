@@ -117,28 +117,12 @@ namespace project.ViewModels
 		{
 			try
 			{
-				ToDoViewModel = _serviceToDo.Get()
-					.FirstOrDefault(x => x.Identity == identity)
-					?? throw new ArgumentException($"ToDoVM не найден: identity = {identity}", nameof(identity));
+				ToDoViewModel = await Task.Run(() => _serviceToDo.Get(identity)
+					?? throw new ArgumentException($"ToDoVM не найден: identity = {identity}", nameof(identity)));
 			}
 			catch (ArgumentException ex)
 			{
-				Log.Warning("ERROR", $"ToDoVM не найден: identity = {identity}", ex.ToString());
-				Log.Warning("ERROR", $"Повтор попытки...");
-
-				try
-				{
-					ToDoViewModel = await Task.Run(() => _serviceToDo.Get()
-						.FirstOrDefault(x => x.Identity == identity)
-							?? throw new ArgumentException($"ToDoVM не найден: identity = {identity}", nameof(identity)));
-
-					Log.Warning("INFO", "Успешно");
-				}
-				catch (ArgumentException ex2)
-				{
-					Log.Warning("ERROR", ex2.ToString());
-					throw;
-				}
+				Log.Warning("ERROR", ex.ToString());
 			}
 
 			ToDoViewModel.Refrash += Refrash;

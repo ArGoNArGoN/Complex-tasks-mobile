@@ -19,7 +19,14 @@ namespace project.Services.ToDoService
 		}
 
 		public IEnumerable<BaseToDoViewModel> Get()
-			=> service.Get()
-			.Select(x => new ToDoSubsViewModel(x));
-	}
+			=> service.Get().Select(x => new ToDoSubsViewModel(x));
+
+        public BaseToDoViewModel Get(int identity)
+        {
+			var model = service.Get(identity);
+			if (!(model is null))
+				return new ToDoSubsViewModel(model);
+			return null;
+		}
+    }
 }

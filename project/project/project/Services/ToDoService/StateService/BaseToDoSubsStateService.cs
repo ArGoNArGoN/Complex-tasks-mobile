@@ -38,7 +38,7 @@ namespace project.Services.ToDoService.StateService
 					Title = x.Title,
 					Count = x.Count,
 					Description = x.Description,
-					EndDate = x.EndTime,
+					EndDate = x.EndDate,
 					Executor = x.Executor,
 					Creator = x.Creator,
 				}
@@ -54,7 +54,7 @@ namespace project.Services.ToDoService.StateService
 			entity.Title = model.Title;
 			entity.Count = model.Count;
 			entity.Description = model.Description;
-			entity.EndTime = model.EndDate;
+			entity.EndDate = model.EndDate;
 			entity.Executor = model.Executor;
 			entity.Creator = model.Creator;
 			entity.State = model.State.Value;
